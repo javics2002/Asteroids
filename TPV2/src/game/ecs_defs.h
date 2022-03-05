@@ -11,13 +11,15 @@
 	_PACMANCTRL, \
 	_STARMOTION, \
 	_GAMECTRL, \
-	_STOPONBORDER
+	_STOPONBORDER, \
+	_SHOWATOPPOSITESIDE
 
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
-	_grp_STARS
+	_grp_STARS, \
+	_grp_ASTEROIDS
 
 // Handlers list - must have at least one element
 //
