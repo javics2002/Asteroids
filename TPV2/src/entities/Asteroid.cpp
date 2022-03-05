@@ -9,13 +9,16 @@
 #include "../components/Generations.h"
 #include "../components/Follow.h"
 
-Asteroid::Asteroid() : Entity(_grp_ASTEROIDS)
+Asteroid::Asteroid(Tipo tipo) : Entity(_grp_ASTEROIDS)
 {
+	tipo_ = tipo;
 	addComponet<Transform>();
-	addComponet<FramedImage>();
+	addComponet<FramedImage>(sdlutils().images().at(tipo_ == Tipo::A ? "asteroids" : "asteroids_gold"));
 	addComponet<ShowAtOppositeSide>();
 	addComponet<Generations>();
-	addComponet<Follow>();
+
+	if(tipo_ == Tipo::B)
+		addComponet<Follow>();
 }
 
 Asteroid::~Asteroid()

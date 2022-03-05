@@ -5,6 +5,10 @@ using namespace ecs;
 
 class Asteroid : public Entity {
 public:
-	Asteroid();
+	enum Tipo {A, B};
+
+	Asteroid(Tipo tipo);
 	virtual ~Asteroid();
+private:
+	Tipo tipo_;
 };
