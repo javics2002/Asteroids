@@ -12,7 +12,10 @@
 	_STARMOTION, \
 	_GAMECTRL, \
 	_STOPONBORDER, \
-	_SHOWATOPPOSITESIDE
+	_SHOWATOPPOSITESIDE, \
+	_DISABLEONEXIT, \
+	_FRAMEDIMAGE, \
+	_FOLLOW
 
 
 // Groups list - must have at least one element

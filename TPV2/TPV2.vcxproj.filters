@@ -114,9 +114,6 @@
     <ClInclude Include="src\ecs\ecs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ecs\ecs_defs_example.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ecs\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,6 +133,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\Follow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\DisableOnExit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -207,6 +207,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\Follow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\DisableOnExit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
