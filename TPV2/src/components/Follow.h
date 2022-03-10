@@ -1,11 +1,13 @@
 #pragma once
 #include "../ecs/Component.h"
 
+class Transfrom;
+
 class Follow : public ecs::Component
 {
 	__CMPID_DECL__(ecs::_FOLLOW)
 
-		Follow() {};
+	Follow(Transform* trFighter);
 	virtual ~Follow() {};
 
 	void initComponent() override;
@@ -13,5 +15,6 @@ class Follow : public ecs::Component
 
 protected:
 	Transform* tr_;
+	Transform* trFighter_;
 };
 

@@ -123,9 +123,6 @@
     <ClInclude Include="src\components\ShowAtOppositeSide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\entities\Asteroid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\FramedImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,6 +133,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\DisableOnExit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\AsteroidsManajer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -197,9 +197,6 @@
     <ClCompile Include="src\components\ShowAtOppositeSide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\entities\Asteroid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\components\FramedImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -210,6 +207,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\DisableOnExit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\AsteroidsManajer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
