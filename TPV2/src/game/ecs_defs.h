@@ -8,17 +8,18 @@
 #define _CMPS_LIST_ \
 	_TRANSFORM, \
 	_IMAGE, \
-	_PACMANCTRL, \
-	_STARMOTION, \
 	_GAMECTRL, \
 	_STOPONBORDER, \
-	_SHOWATOPPOSITESIDE
+	_SHOWATOPPOSITESIDE, \
+	_DISABLEONEXIT, \
+	_FRAMEDIMAGE, \
+	_FOLLOW, \
+	_GENERATIONS
 
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
-	_grp_STARS, \
 	_grp_ASTEROIDS
 
 // Handlers list - must have at least one element
