@@ -14,8 +14,7 @@
 //
 #define _CMPS_LIST_ \
 	_TRANSFORM, \
-	_IMAGE, \
-	_SHOWATOPPOSITESIDE
+	_IMAGE
 
 
 // Groups list - must have at least one element
