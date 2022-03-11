@@ -735,3 +735,5 @@ About
 *.tlog
 *.ipch
 *.db
+*.suo
+*.vcxproj
