@@ -733,3 +733,5 @@ About
 *.pdb
 *.ilk
 *.tlog
+*.ipch
+*.db
