@@ -49,7 +49,7 @@ void GameCtrl::render() {
 	//scoreTex.render(dest);
 
 	// draw add stars message
-	sdlutils().msgs().at("addstars").render(10, 10);
+	//sdlutils().msgs().at("addstars").render(10, 10);
 }
 
 void GameCtrl::createStart(unsigned int n) {
