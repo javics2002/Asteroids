@@ -23,5 +23,8 @@ public:
 private:
 	void createStart();
 	Transform *tr_;
+
+	const float THRUST = 0.2;
+	const float SPEED_LIMIT = 3.0;
 };
 

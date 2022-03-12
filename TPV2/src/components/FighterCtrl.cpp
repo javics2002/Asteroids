@@ -40,38 +40,27 @@ void FighterCtrl::update() {
 			// direction where it moves
 			//
 			vel_ = vel_.rotate(5.0f);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
 			tr_->setRot(rot - 5.0f);
 
 			// also rotate the Fighter so it looks in the same
 			// direction where it moves
 			//
 			vel_ = vel_.rotate(-5.0f);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
 
-			// add 1.0f to the speed (respecting the limit 3.0f). Recall
-			// that speed is the length of the velocity vector
-			float speed = std::min(3.0f, vel_.magnitude() + 1.0f);
+			/*float speed = std::min(3.0f, vel_.magnitude() + 1.0f);*/
 
-			// change the length of velocity vecto to 'speed'. We need
-			// '.rotate(rot)' for the case in which the current speed is
-			// 0, so we rotate it to the same direction where the Fighter
-			// is looking
-			//
-			vel_ = Vector2D(0, -speed).rotate(rot);
+			Vector2D newVel = vel_ + Vector2D(0, -1).rotate(rot) * THRUST;
+
+			if (newVel.magnitude() > SPEED_LIMIT)
+				newVel = newVel.normalize()* SPEED_LIMIT;
+
+			vel_ = newVel;
 
 			sdlutils().soundEffects().at("thrust").play(0);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) { // decrease speed
-			// subtract 1.0f to the speed (respecting the limit 0.0f). Recall
-			// that speed is the length of the velocity vector
-			float speed = std::max(0.0f, vel_.magnitude() - 1.0f);
-
-			// change the length of velocity vector to 'speed'. We need
-			// '.rotate(rot)' for the case in which the current speed is
-			// 0, so we rotate it to the same direction where the Fighter
-			// is looking
-			//
-			vel_ = Vector2D(0, -speed).rotate(rot);
 		}
 	}
 }
