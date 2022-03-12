@@ -16,7 +16,9 @@
 	_DISABLEONEXIT, \
 	_FRAMEDIMAGE, \
 	_FOLLOW, \
-	_GENERATIONS
+	_GENERATIONS, \
+	_HEALTH, \
+	_DEACCELERATION
 
 
 // Groups list - must have at least one element
@@ -28,6 +30,6 @@
 // Handlers list - must have at least one element
 //
 #define _HDLRS_LIST_ \
-    _hdlr_PACMAN, \
+    _hdlr_CAZA, \
 	_hdlr_GAMEINFO
 

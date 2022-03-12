@@ -35,18 +35,18 @@ void GameCtrl::update() {
 
 void GameCtrl::render() {
 
-	// draw the score
-	//
-	Texture scoreTex(sdlutils().renderer(), std::to_string(score_),
-			sdlutils().fonts().at("ARIAL24"), build_sdlcolor(0x444444ff));
+	//// draw the score
+	////
+	//Texture scoreTex(sdlutils().renderer(), std::to_string(score_),
+	//		sdlutils().fonts().at("ARIAL24"), build_sdlcolor(0x444444ff));
 
-	SDL_Rect dest = build_sdlrect( //
-			(sdlutils().width() - scoreTex.width()) / 2.0f, //
-			10.0f, //
-			scoreTex.width(), //
-			scoreTex.height());
+	//SDL_Rect dest = build_sdlrect( //
+	//		(sdlutils().width() - scoreTex.width()) / 2.0f, //
+	//		10.0f, //
+	//		scoreTex.width(), //
+	//		scoreTex.height());
 
-	scoreTex.render(dest);
+	//scoreTex.render(dest);
 
 	// draw add stars message
 	sdlutils().msgs().at("addstars").render(10, 10);

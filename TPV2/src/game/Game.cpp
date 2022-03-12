@@ -14,6 +14,8 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
+#include "../components/Health.h"
+#include "../components/Deacceleration.h"
 
 using ecs::Entity;
 using ecs::Manager;
@@ -34,18 +36,22 @@ void Game::init() {
 	// Create the manager
 	mngr_ = new Manager();
 
-	// create the PacMan entity
+	// create the Fighter entity
 	//
-	auto pacman = mngr_->addEntity();
-	mngr_->setHandler(ecs::_hdlr_PACMAN, pacman);
-	auto tr = pacman->addComponent<Transform>();
+	auto caza = mngr_->addEntity();
+	mngr_->setHandler(ecs::_hdlr_CAZA, caza);
+	auto tr = caza->addComponent<Transform>();
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
 	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
-	pacman->addComponent < Image > (&sdlutils().images().at("fighter"));
-	pacman->addComponent<FighterCtrl>();
-	pacman->addComponent<ShowAtOppositeSide>();
+
+	//Añadir componentes
+	caza->addComponent<Image>(&sdlutils().images().at("fighter"));
+	caza->addComponent<FighterCtrl>();
+	caza->addComponent<ShowAtOppositeSide>();
+	caza->addComponent<Health>(&sdlutils().images().at("fighter"));
+	caza->addComponent<Deacceleration>();
 
 	// create the game info entity
 	auto ginfo = mngr_->addEntity();
@@ -90,9 +96,9 @@ void Game::start() {
 
 void Game::checkCollisions() {
 
-	// the PacMan's Transform
+	// the Fighter's Transform
 	//
-	auto pTR = mngr_->getHandler(ecs::_hdlr_PACMAN)->getComponent<Transform>();
+	auto cTR = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Transform>();
 
 	// For safety, we traverse with a normal loop until the current size. In this
 	// particular case we could use a for-each loop since the list stars is not
@@ -109,11 +115,11 @@ void Game::checkCollisions() {
 			auto eTR = e->getComponent<Transform>();
 
 			// check if PacMan collides with the Star (i.e., eat it)
-			if (Collisions::collides(pTR->getPos(), pTR->getWidth(),
-					pTR->getHeight(), //
+			if (Collisions::collides(cTR->getPos(), cTR->getWidth(),
+					cTR->getHeight(), //
 					eTR->getPos(), eTR->getWidth(), eTR->getHeight())) {
 				e->setAlive(false);
-				mngr_->getHandler(ecs::_hdlr_GAMEINFO)->getComponent<GameCtrl>()->onStarEaten();
+				mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>()->onAsteroidCollision();
 
 				// play sound on channel 1 (if there is something playing there
 				// it will be cancelled
