@@ -27,7 +27,7 @@ void Health::render() {
 
 	for (int i = 0; i < lives; i++)
 	{
-		SDL_Rect dest = build_sdlrect(20 + i * 30, 20, 25, 25);
+		SDL_Rect dest = build_sdlrect(HEALTH_POS + i * HEALTH_SIZE, HEALTH_POS, HEALTH_SIZE, HEALTH_SIZE);
 
 		assert(tex_ != nullptr);
 		tex_->render(dest);

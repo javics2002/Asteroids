@@ -17,6 +17,10 @@
     {
       "id": "fighter",
       "file": "resources/images/fighter.png"
+    },
+    {
+      "id": "heart",
+      "file": "resources/images/heart.png"
     }
   ],
   
@@ -29,7 +33,14 @@
   "sounds" : [
     { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
     { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
-    { "id" : "pacman_eat", "file" : "resources/sound/pacman_eat.wav" }
+    {
+      "id": "pacman_eat",
+      "file": "resources/sound/pacman_eat.wav"
+    },
+    {
+      "id": "thrust",
+      "file": "resources/sound/thrust.wav"
+    }
   ],
 
   "musics" : [

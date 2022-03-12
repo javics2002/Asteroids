@@ -2,6 +2,9 @@
 #include "../ecs/Component.h"
 #include "../ecs/ecs.h"
 
+#define HEALTH_SIZE 25	
+#define HEALTH_POS 20
+
 class Texture;
 
 class Health : public ecs::Component {
@@ -25,6 +28,10 @@ public:
 	void initComponent() override;
 	void render() override;
 	void onAsteroidCollision();
+
+	int getLives() { return lives; };
+
+	void resetLives() { lives = MAX_LIVES; };
 
 protected:
 	Texture* tex_;

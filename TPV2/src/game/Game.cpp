@@ -50,7 +50,7 @@ void Game::init() {
 	caza->addComponent<Image>(&sdlutils().images().at("fighter"));
 	caza->addComponent<FighterCtrl>();
 	caza->addComponent<ShowAtOppositeSide>();
-	caza->addComponent<Health>(&sdlutils().images().at("fighter"));
+	caza->addComponent<Health>(&sdlutils().images().at("heart"));
 	caza->addComponent<Deacceleration>();
 
 	// create the game info entity
