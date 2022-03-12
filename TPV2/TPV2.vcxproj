@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\DisableOnExit.h" />
+    <ClInclude Include="src\components\FramedImage.h" />
+    <ClInclude Include="src\components\Generations.h" />
+    <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
     <ClInclude Include="src\game\Caza.h" />
@@ -30,7 +34,6 @@
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\ecs\Component.h" />
     <ClInclude Include="src\ecs\ecs.h" />
-    <ClInclude Include="src\ecs\ecs_defs_example.h" />
     <ClInclude Include="src\ecs\Entity.h" />
     <ClInclude Include="src\ecs\Manager.h" />
     <ClInclude Include="src\game\ecs_defs.h" />
@@ -54,6 +57,10 @@
     <ClInclude Include="src\utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\DisableOnExit.cpp" />
+    <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\Generations.cpp" />
+    <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\components\Gun.cpp" />
     <ClCompile Include="src\components\Deacceleration.cpp" />
     <ClCompile Include="src\game\Caza.cpp" />

@@ -7,6 +7,7 @@
 #include "../components/FighterCtrl.h"
 #include "../components/StopOnBorders.h"
 #include "../components/Transform.h"
+#include "../components/ShowAtOppositeSide.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
@@ -44,7 +45,7 @@ void Game::init() {
 	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
 	pacman->addComponent < Image > (&sdlutils().images().at("fighter"));
 	pacman->addComponent<FighterCtrl>();
-	pacman->addComponent<StopOnBorders>();
+	pacman->addComponent<ShowAtOppositeSide>();
 
 	// create the game info entity
 	auto ginfo = mngr_->addEntity();

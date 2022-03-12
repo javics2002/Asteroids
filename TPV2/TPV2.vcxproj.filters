@@ -114,9 +114,6 @@
     <ClInclude Include="src\ecs\ecs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ecs\ecs_defs_example.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ecs\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -130,6 +127,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\Gun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\DisableOnExit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\FramedImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Generations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ShowAtOppositeSide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -195,6 +204,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\Gun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\DisableOnExit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\FramedImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\Generations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\ShowAtOppositeSide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
