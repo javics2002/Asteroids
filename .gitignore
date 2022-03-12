@@ -735,3 +735,6 @@ About
 *.tlog
 *.ipch
 *.db
+*.db
+*.db
+*.tlog
