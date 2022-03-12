@@ -16,6 +16,7 @@
 #include "../utils/Collisions.h"
 #include "../components/Health.h"
 #include "../components/Deacceleration.h"
+#include "../components/Gun.h"
 
 using ecs::Entity;
 using ecs::Manager;
@@ -52,6 +53,7 @@ void Game::init() {
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<Health>(&sdlutils().images().at("heart"));
 	caza->addComponent<Deacceleration>();
+	caza->addComponent<Gun>();
 
 	// create the game info entity
 	auto ginfo = mngr_->addEntity();

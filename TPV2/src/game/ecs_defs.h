@@ -18,14 +18,16 @@
 	_FOLLOW, \
 	_GENERATIONS, \
 	_HEALTH, \
-	_DEACCELERATION
+	_DEACCELERATION, \
+	_GUN
 
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
 	_grp_ASTEROIDS, \
-	_grp_STARS
+	_grp_STARS, \
+	_grp_BULLETS
 
 // Handlers list - must have at least one element
 //

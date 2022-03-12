@@ -6,6 +6,8 @@
 #include "../sdlutils/SDLUtils.h"
 #include "Transform.h"
 
+using namespace std;
+
 DisableOnExit::DisableOnExit()
 {
 }

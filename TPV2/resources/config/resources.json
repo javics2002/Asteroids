@@ -21,6 +21,10 @@
     {
       "id": "heart",
       "file": "resources/images/heart.png"
+    },
+    {
+      "id": "bullet",
+      "file": "resources/images/fire.png"
     }
   ],
   
@@ -40,6 +44,10 @@
     {
       "id": "thrust",
       "file": "resources/sound/thrust.wav"
+    },
+    {
+      "id": "fire",
+      "file": "resources/sound/fire.wav"
     }
   ],
 
