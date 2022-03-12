@@ -96,7 +96,7 @@
     <ClInclude Include="src\components\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\PacManCtrl.h">
+    <ClInclude Include="src\components\FighterCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\StarMotion.h">
@@ -176,7 +176,7 @@
     <ClCompile Include="src\components\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\PacManCtrl.cpp">
+    <ClCompile Include="src\components\FighterCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\StarMotion.cpp">

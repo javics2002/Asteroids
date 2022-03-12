@@ -66,7 +66,7 @@ void GameCtrl::createStart(unsigned int n) {
 		// add a Transform component, and initialise it with random
 		// size and position
 		//
-		auto tr = e->addComponet<Transform>();
+		auto tr = e->addComponent<Transform>();
 		auto s = rand.nextInt(50, 100);
 		auto x = rand.nextInt(0, sdlutils().width() - s);
 		auto y = rand.nextInt(0, sdlutils().height() - s);
@@ -74,11 +74,11 @@ void GameCtrl::createStart(unsigned int n) {
 
 		// add an Image Component
 		//
-		e->addComponet<Image>(&sdlutils().images().at("star"));
+		e->addComponent<Image>(&sdlutils().images().at("star"));
 
 		// add a StarMotion component to resize/rotate the star
 		//
-		e->addComponet<StarMotion>();
+		e->addComponent<StarMotion>();
 
 		currNumOfStars_++;
 	}

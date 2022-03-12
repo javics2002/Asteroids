@@ -5,18 +5,18 @@
 
 class Transform;
 
-class PacManCtrl: public ecs::Component {
+class FighterCtrl: public ecs::Component {
 public:
 
 	// This line expands to the following (see the defintion of
 	// __CMPID_DECL__ en ecs.h):
 	//
-	//    constexpr static ecs::cmpId_type id = ecs::_PACMANCTRL
+	//    constexpr static ecs::cmpId_type id = ecs::_FighterCTRL
 	//
-	__CMPID_DECL__(ecs::_PACMANCTRL)
+	__CMPID_DECL__(ecs::_FIGHTERCTRL)
 
-	PacManCtrl();
-	virtual ~PacManCtrl();
+	FighterCtrl();
+	virtual ~FighterCtrl();
 	void initComponent() override;
 	void update() override;
 

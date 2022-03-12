@@ -86,7 +86,7 @@ public:
 	// The component identifier 'cId' is taken from T::id.
 	//
 	template<typename T, typename ...Ts>
-	inline T* addComponet(Ts &&... args) {
+	inline T* addComponent(Ts &&... args) {
 
 		constexpr cmpId_type cId = T::id;
 		assert(cId < ecs::maxComponentId);

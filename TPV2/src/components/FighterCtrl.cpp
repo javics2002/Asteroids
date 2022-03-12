@@ -1,6 +1,6 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
-#include "PacManCtrl.h"
+#include "FighterCtrl.h"
 
 #include <cassert>
 
@@ -12,19 +12,19 @@
 #include "StarMotion.h"
 #include "Transform.h"
 
-PacManCtrl::PacManCtrl() :
+FighterCtrl::FighterCtrl() :
 		tr_(nullptr) {
 }
 
-PacManCtrl::~PacManCtrl() {
+FighterCtrl::~FighterCtrl() {
 }
 
-void PacManCtrl::initComponent() {
+void FighterCtrl::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
 }
 
-void PacManCtrl::update() {
+void FighterCtrl::update() {
 
 	auto &ihldr = ih();
 
@@ -36,14 +36,14 @@ void PacManCtrl::update() {
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { // rotate right
 			tr_->setRot(rot + 5.0f);
 
-			// also rotate the PacMan so it looks in the same
+			// also rotate the Fighter so it looks in the same
 			// direction where it moves
 			//
 			vel_ = vel_.rotate(5.0f);
 		} else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
 			tr_->setRot(rot - 5.0f);
 
-			// also rotate the PacMan so it looks in the same
+			// also rotate the Fighter so it looks in the same
 			// direction where it moves
 			//
 			vel_ = vel_.rotate(-5.0f);
@@ -55,7 +55,7 @@ void PacManCtrl::update() {
 
 			// change the length of velocity vecto to 'speed'. We need
 			// '.rotate(rot)' for the case in which the current speed is
-			// 0, so we rotate it to the same direction where the PacMan
+			// 0, so we rotate it to the same direction where the Fighter
 			// is looking
 			//
 			vel_ = Vector2D(0, -speed).rotate(rot);
@@ -66,7 +66,7 @@ void PacManCtrl::update() {
 
 			// change the length of velocity vector to 'speed'. We need
 			// '.rotate(rot)' for the case in which the current speed is
-			// 0, so we rotate it to the same direction where the PacMan
+			// 0, so we rotate it to the same direction where the Fighter
 			// is looking
 			//
 			vel_ = Vector2D(0, -speed).rotate(rot);

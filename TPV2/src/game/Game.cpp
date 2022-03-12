@@ -4,7 +4,7 @@
 
 #include "../components/GameCtrl.h"
 #include "../components/Image.h"
-#include "../components/PacManCtrl.h"
+#include "../components/FighterCtrl.h"
 #include "../components/StopOnBorders.h"
 #include "../components/Transform.h"
 #include "../ecs/Entity.h"
@@ -37,19 +37,19 @@ void Game::init() {
 	//
 	auto pacman = mngr_->addEntity();
 	mngr_->setHandler(ecs::_hdlr_PACMAN, pacman);
-	auto tr = pacman->addComponet<Transform>();
+	auto tr = pacman->addComponent<Transform>();
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
 	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
-	pacman->addComponet < Image > (&sdlutils().images().at("pacman"));
-	pacman->addComponet<PacManCtrl>();
-	pacman->addComponet<StopOnBorders>();
+	pacman->addComponent < Image > (&sdlutils().images().at("fighter"));
+	pacman->addComponent<FighterCtrl>();
+	pacman->addComponent<StopOnBorders>();
 
 	// create the game info entity
 	auto ginfo = mngr_->addEntity();
 	mngr_->setHandler(ecs::_hdlr_GAMEINFO, ginfo);
-	ginfo->addComponet<GameCtrl>();
+	ginfo->addComponent<GameCtrl>();
 }
 
 void Game::start() {
