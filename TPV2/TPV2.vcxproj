@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\Follow.h" />
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\DisableOnExit.h" />
     <ClInclude Include="src\components\FramedImage.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
+    <ClInclude Include="src\game\AsteroidsManajer.h" />
     <ClInclude Include="src\game\Caza.h" />
     <ClInclude Include="src\components\GameCtrl.h" />
     <ClInclude Include="src\components\Image.h" />
@@ -58,6 +60,7 @@
     <ClInclude Include="src\utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\Follow.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\DisableOnExit.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
@@ -65,6 +68,7 @@
     <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\components\Gun.cpp" />
     <ClCompile Include="src\components\Deacceleration.cpp" />
+    <ClCompile Include="src\game\AsteroidsManajer.cpp" />
     <ClCompile Include="src\game\Caza.cpp" />
     <ClCompile Include="src\components\GameCtrl.cpp" />
     <ClCompile Include="src\components\Image.cpp" />

@@ -1,4 +1,4 @@
-#include "AsteroidsManajer.h"
+#include "AsteroidsManager.h"
 #include "../ecs/Manager.h"
 #include "../components/Follow.h"
 #include "../components/Transform.h"
@@ -8,7 +8,7 @@
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
 
-void AsteroidsManajer::createAsteroids(int n, unsigned int numGenerations , 
+void AsteroidsManager::createAsteroids(int n, unsigned int numGenerations , 
 	Vector2D pos , Vector2D vel , float r )
 {
 	auto i = 0;
@@ -55,7 +55,7 @@ void AsteroidsManajer::createAsteroids(int n, unsigned int numGenerations ,
 	}
 }
 
-void AsteroidsManajer::addAsteroidFrequently()
+void AsteroidsManager::addAsteroidFrequently()
 {
 	if (sdlutils().currRealTime() - lastGenerationTime > GENERATION_TIME) {
 		createAsteroids(1);
@@ -63,7 +63,7 @@ void AsteroidsManajer::addAsteroidFrequently()
 	}
 }
 
-void AsteroidsManajer::destroyAllAsteroids()
+void AsteroidsManager::destroyAllAsteroids()
 {
 	auto groupAsteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 
@@ -73,7 +73,7 @@ void AsteroidsManajer::destroyAllAsteroids()
 	currentAsteroids = 0;
 }
 
-void AsteroidsManajer::onCollision(ecs::Entity* a)
+void AsteroidsManager::onCollision(ecs::Entity* a)
 {
 	currentAsteroids--;
 	Transform* trA = a->getComponent<Transform>();
@@ -91,11 +91,11 @@ void AsteroidsManajer::onCollision(ecs::Entity* a)
 	a->setAlive(false);
 }
 
-AsteroidsManajer::AsteroidsManajer(Transform* trFighter)
+AsteroidsManager::AsteroidsManager(Transform* trFighter)
 {
 	trFighter_ = trFighter;
 }
 
-AsteroidsManajer::~AsteroidsManajer()
+AsteroidsManager::~AsteroidsManager()
 {
 }

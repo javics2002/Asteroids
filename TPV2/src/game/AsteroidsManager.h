@@ -7,7 +7,7 @@ class Manager;
 class Entity;
 class Transform;
 
-class AsteroidsManajer
+class AsteroidsManager
 {
 	ecs::Manager* mngr_;
 	unsigned int currentAsteroids;
@@ -26,7 +26,7 @@ class AsteroidsManajer
 	void onCollision(ecs::Entity* a);
 
 public:
-	AsteroidsManajer(Transform* trFighter);
-	~AsteroidsManajer();
+	AsteroidsManager(Transform* trFighter);
+	~AsteroidsManager();
 };
 
