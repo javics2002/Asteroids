@@ -19,7 +19,8 @@
 	_GENERATIONS, \
 	_HEALTH, \
 	_DEACCELERATION, \
-	_GUN
+	_GUN, \
+	_STATE
 
 
 // Groups list - must have at least one element

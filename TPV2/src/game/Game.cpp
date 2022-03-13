@@ -17,6 +17,7 @@
 #include "../components/Health.h"
 #include "../components/Deacceleration.h"
 #include "../components/Gun.h"
+#include "../components/State.h"
 
 using ecs::Entity;
 using ecs::Manager;
@@ -59,6 +60,7 @@ void Game::init() {
 	auto ginfo = mngr_->addEntity();
 	mngr_->setHandler(ecs::_hdlr_GAMEINFO, ginfo);
 	ginfo->addComponent<GameCtrl>();
+	ginfo->addComponent<State>();
 }
 
 void Game::start() {

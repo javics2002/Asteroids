@@ -27,7 +27,7 @@
     <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
-    <ClInclude Include="src\game\AsteroidsManajer.h" />
+    <ClInclude Include="src\game\AsteroidsManager.h" />
     <ClInclude Include="src\game\Caza.h" />
     <ClInclude Include="src\components\GameCtrl.h" />
     <ClInclude Include="src\components\Image.h" />
@@ -58,6 +58,7 @@
     <ClInclude Include="src\utils\mpl.h" />
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
+    <ClInclude Include="src\components\State.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\Follow.cpp" />
@@ -68,7 +69,7 @@
     <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\components\Gun.cpp" />
     <ClCompile Include="src\components\Deacceleration.cpp" />
-    <ClCompile Include="src\game\AsteroidsManajer.cpp" />
+    <ClCompile Include="src\game\AsteroidsManager.cpp" />
     <ClCompile Include="src\game\Caza.cpp" />
     <ClCompile Include="src\components\GameCtrl.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="src\sdlutils\Texture.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
+    <ClCompile Include="src\components\State.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
