@@ -50,7 +50,7 @@ void Game::init() {
 	auto y = (sdlutils().height() - s) / 2.0f;
 	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
 
-	//Añadir componentes
+	//Aï¿½adir componentes
 	caza->addComponent<Image>(&sdlutils().images().at("fighter"));
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<Health>(&sdlutils().images().at("heart"));
@@ -59,6 +59,7 @@ void Game::init() {
 	aManager_ = new AsteroidsManager(mngr_);
 
 	gameController_ = mngr_->addEntity();
+	gameController_->setHandler(ecs::_hdlr_GAMEINFO, gameController_);
 	gameController_->addComponent<GameState>()->setState(GameState::NEWGAME);
 	gameController_->addComponent<GameCtrl>(aManager_);
 }
@@ -127,7 +128,7 @@ void Game::checkCollisions() {
 							//Gamamos!
 							gameController_->getComponent<GameState>()->setState(GameState::WIN);
 
-							//Posición inicial
+							//Posiciï¿½n inicial
 							cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
 								(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
 						}
@@ -151,7 +152,7 @@ void Game::checkCollisions() {
 				gameController_->getComponent<GameState>()->
 					setState(health->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
 				
-				//Posición inicial
+				//Posiciï¿½n inicial
 				cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f, 
 					(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
 			}
