@@ -17,10 +17,13 @@ void State::initComponent() {
 void State::update() {
 	auto& ihldr = ih();
 
-	if (ihldr.keyDownEvent()) {
-		if (ihldr.isKeyDown(SDL_SCANCODE_SPACE)) 
-		{ 
-			state = static_cast<Estados>(state + 1);
+	if (state != RUNNING)
+	{
+		if (ihldr.keyDownEvent()) {
+			if (ihldr.isKeyDown(SDL_SCANCODE_SPACE))
+			{
+				state = static_cast<Estados>(state + 1);
+			}
 		}
 	}
 }
