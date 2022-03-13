@@ -15,7 +15,7 @@ class FramedImage : Image
 public:
 	__CMPID_DECL__(ecs::_FRAMEDIMAGE)
 
-	FramedImage() {};
+	FramedImage(Texture* tex);
 	~FramedImage() {};
 
 	void update() override;

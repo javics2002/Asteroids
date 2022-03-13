@@ -8,6 +8,10 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 
+FramedImage::FramedImage(Texture* tex) : Image(tex)
+{
+}
+
 void FramedImage::update()
 {
 	deltatime = sdlutils().currRealTime() - deltatime;

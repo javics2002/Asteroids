@@ -1,9 +1,9 @@
 #include "AsteroidsManajer.h"
 #include "../ecs/Manager.h"
-//#include "../components/Follow.h"
+#include "../components/Follow.h"
 #include "../components/Transform.h"
 #include "../components/ShowAtOppositeSide.h"
-#include "../components/FramedImage.h"
+//#include "../components/FramedImage.h"
 #include "../components/Generations.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
@@ -39,14 +39,15 @@ void AsteroidsManajer::createAsteroids(int n, unsigned int numGenerations ,
 		asteroid->addComponent<ShowAtOppositeSide>();
 		asteroid->addComponent<Generations>(numGenerations);
 
+		Texture* t;
 		//Tipo B
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
-			asteroid->addComponent<FramedImage>(sdlutils().images().at("asteroids_gold"));
-			asteroid->addComponent<Follow>();
+			//asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroids_gold"));
+			asteroid->addComponent<Follow>(trFighter_);
 		}
 		//Tipo A
 		else {
-			asteroid->addComponent<FramedImage>(sdlutils().images().at("asteroids"));
+			//asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroids"));
 		}
 
 		currentAsteroids++;
