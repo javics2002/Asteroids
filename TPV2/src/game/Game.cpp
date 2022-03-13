@@ -59,7 +59,6 @@ void Game::init() {
 	aManager_ = new AsteroidsManager(mngr_);
 
 	gameController_ = mngr_->addEntity();
-	gameController_->setHandler(ecs::_hdlr_GAMEINFO, gameController_);
 	gameController_->addComponent<GameState>()->setState(GameState::NEWGAME);
 	gameController_->addComponent<GameCtrl>(aManager_);
 }
@@ -128,9 +127,13 @@ void Game::checkCollisions() {
 							//Gamamos!
 							gameController_->getComponent<GameState>()->setState(GameState::WIN);
 
-							//Posici�n inicial
+							//Posición inicial
 							cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
 								(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+
+							//Ya no podemos controlar al caza
+							mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<FighterCtrl>();
+							mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<Gun>();
 						}
 					}
 				}
@@ -152,9 +155,13 @@ void Game::checkCollisions() {
 				gameController_->getComponent<GameState>()->
 					setState(health->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
 				
-				//Posici�n inicial
+				//Posición inicial
 				cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f, 
 					(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+
+				//Ya no podemos controlar al caza
+				mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<FighterCtrl>();
+				mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<Gun>();
 			}
 		}
 	}
