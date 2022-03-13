@@ -9,8 +9,6 @@
   "images" : [
     { "id" : "asteroid", "file" : "resources/images/asteroid.png" },
     { "id" : "asteroid_gold", "file" : "resources/images/asteroid_gold.png" },
-    { "id" : "star", "file" : "resources/images/star.png" },
-    { "id" : "pacman", "file": "resources/images/pacman.png" },
     { "id" : "fighter", "file": "resources/images/fighter.png" },
     { "id" : "heart", "file": "resources/images/heart.png" },
     { "id" : "bullet", "file": "resources/images/fire.png" }
@@ -24,12 +22,6 @@
   ],
   
   "sounds" : [
-    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
-    { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
-    {
-      "id": "pacman_eat",
-      "file": "resources/sound/pacman_eat.wav"
-    },
     {
       "id": "thrust",
       "file": "resources/sound/thrust.wav"
@@ -38,11 +30,5 @@
       "id": "fire",
       "file": "resources/sound/fire.wav"
     }
-  ],
-
-  "musics" : [
-    { "id" : "beat", "file" : "resources/sound/beat.wav" },
-    { "id" : "imperial_march", "file" : "resources/sound/imperial_march.wav" }
   ]
-
 }
