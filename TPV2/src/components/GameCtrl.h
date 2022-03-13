@@ -4,32 +4,23 @@
 
 #include "../ecs/Component.h"
 
+class GameState;
+class AsteroidsManager;
+
 class GameCtrl: public ecs::Component {
 public:
 
 	__CMPID_DECL__(ecs::_GAMECTRL)
 
-	GameCtrl();
+	GameCtrl(AsteroidsManager* aMngr);
 	virtual ~GameCtrl();
-
-	inline void onStarDeath() {
-		currNumOfStars_--;
-	}
-
-	inline void onStarEaten() {
-		currNumOfStars_--;
-		score_++;
-	}
 
 	void initComponent() override;
 	void update() override;
-	void render() override;
 
 private:
-	void createStart(unsigned int n);
+	GameState* currentState_;
 
-	unsigned int currNumOfStars_;
-	unsigned int score_;
-	unsigned int starsLimit_;
+	AsteroidsManager* aMngr_;
 };
 

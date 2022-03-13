@@ -6,7 +6,9 @@
 
 namespace ecs {
 class Manager;
+class Entity;
 }
+class AsteroidsManager;
 
 class Game {
 public:
@@ -17,5 +19,7 @@ public:
 private:
 	void checkCollisions();
 	ecs::Manager *mngr_;
+	AsteroidsManager* aManager_;
+	ecs::Entity* gameController_;
 };
 

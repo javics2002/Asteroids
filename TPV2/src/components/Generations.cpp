@@ -1,7 +1,6 @@
 #include "Generations.h"
-#include "../sdlutils/SDLUtils.h"
 
-Generations::Generations(unsigned int numGenerations = sdlutils().rand().nextInt(0, 3)) {
+Generations::Generations(unsigned int numGenerations) {
 	numGenerations_ = numGenerations;
 }
 

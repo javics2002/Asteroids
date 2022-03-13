@@ -32,5 +32,4 @@ void Image::render() {
 
 	assert(tex_ != nullptr);
 	tex_->render(dest, tr_->getRot());
-
 }

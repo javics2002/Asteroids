@@ -9,7 +9,6 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "Image.h"
-#include "StarMotion.h"
 #include "Transform.h"
 
 FighterCtrl::FighterCtrl() :

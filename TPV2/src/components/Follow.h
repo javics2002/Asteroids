@@ -8,7 +8,7 @@ class Follow : public ecs::Component
 public:
 	__CMPID_DECL__(ecs::_FOLLOW)
 
-	Follow(Transform* trFighter);
+	Follow();
 	virtual ~Follow() {};
 
 	void initComponent() override;

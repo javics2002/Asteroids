@@ -8,6 +8,8 @@
 #include "../components/StopOnBorders.h"
 #include "../components/Transform.h"
 #include "../components/ShowAtOppositeSide.h"
+#include "../components/GameState.h"
+#include "../components/GameCtrl.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
@@ -17,6 +19,7 @@
 #include "../components/Health.h"
 #include "../components/Deacceleration.h"
 #include "../components/Gun.h"
+#include "AsteroidsManager.h"
 
 using ecs::Entity;
 using ecs::Manager;
@@ -49,16 +52,15 @@ void Game::init() {
 
 	//Añadir componentes
 	caza->addComponent<Image>(&sdlutils().images().at("fighter"));
-	caza->addComponent<FighterCtrl>();
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<Health>(&sdlutils().images().at("heart"));
 	caza->addComponent<Deacceleration>();
-	caza->addComponent<Gun>();
 
-	// create the game info entity
-	auto ginfo = mngr_->addEntity();
-	mngr_->setHandler(ecs::_hdlr_GAMEINFO, ginfo);
-	ginfo->addComponent<GameCtrl>();
+	aManager_ = new AsteroidsManager(mngr_);
+
+	gameController_ = mngr_->addEntity();
+	gameController_->addComponent<GameState>()->setState(GameState::NEWGAME);
+	gameController_->addComponent<GameCtrl>(aManager_);
 }
 
 void Game::start() {
@@ -84,6 +86,9 @@ void Game::start() {
 
 		checkCollisions();
 
+		if(gameController_->getComponent<GameState>()->getState() == GameState::RUNNING)
+			aManager_->addAsteroidFrequently();
+
 		sdlutils().clearRenderer();
 		mngr_->render();
 		sdlutils().presentRenderer();
@@ -97,35 +102,58 @@ void Game::start() {
 }
 
 void Game::checkCollisions() {
-
-	// the Fighter's Transform
-	//
 	auto cTR = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Transform>();
 
-	// For safety, we traverse with a normal loop until the current size. In this
-	// particular case we could use a for-each loop since the list stars is not
-	// modified.
-	//
-	auto &stars = mngr_->getEntities(ecs::_grp_STARS);
-	auto n = stars.size();
+	auto &asteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
+	auto n = asteroids.size();
 	for (auto i = 0u; i < n; i++) {
-		auto e = stars[i];
-		if (e->isAlive()) { // if the star is active (it might have died in this frame)
-
-			// the Star's Transform
-			//
+		auto e = asteroids[i];
+		if (e->isAlive()) { 
 			auto eTR = e->getComponent<Transform>();
 
-			// check if PacMan collides with the Star (i.e., eat it)
-			if (Collisions::collides(cTR->getPos(), cTR->getWidth(),
-					cTR->getHeight(), //
-					eTR->getPos(), eTR->getWidth(), eTR->getHeight())) {
-				e->setAlive(false);
-				mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>()->onAsteroidCollision();
+			//Si un asteroide colisiona con una bala
+			auto& bullets = mngr_->getEntities(ecs::_grp_BULLETS);
+			auto m = bullets.size();
+			for (auto i = 0u; i < m; i++) {
+				auto b = bullets[i];
+				if (b->isAlive()) {
+					auto bTR = b->getComponent<Transform>();
 
-				// play sound on channel 1 (if there is something playing there
-				// it will be cancelled
-				sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+					if (Collisions::collidesWithRotation(bTR->getPos(), bTR->getWidth(), bTR->getHeight(), bTR->getRot(),
+						eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) {
+						b->setAlive(false);
+						
+						if (aManager_->onCollision(e)) {
+							//Gamamos!
+							gameController_->getComponent<GameState>()->setState(GameState::WIN);
+
+							//Posición inicial
+							cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
+								(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+						}
+					}
+				}
+			}
+
+			//Si un asteroide colisiona con el caza
+			if (Collisions::collidesWithRotation(cTR->getPos(), cTR->getWidth(), cTR->getHeight(), cTR->getRot(), 
+				eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) {
+				//Destruir entidades
+				aManager_->destroyAllAsteroids();
+				for (auto i = 0u; i < m; i++)
+					bullets[i]->setAlive(false);
+
+				//Quitar vida
+				auto health = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>();
+				health->onAsteroidCollision();
+
+				//Cambio de estado
+				gameController_->getComponent<GameState>()->
+					setState(health->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
+				
+				//Posición inicial
+				cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f, 
+					(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
 			}
 		}
 	}
