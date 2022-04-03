@@ -11,12 +11,23 @@
 
 namespace ecs {
 
+/*
+ * A class that represents a collection of components. In principle,
+ * we could remove methods update/render since they won't be really
+ * called when using Systems (also the field currCmps_). Nevertheless,
+ * we leave them just to be able to use this code without systems as
+ * well.
+ *
+ * Managing components is not done any more in the class, we move to the
+ * manager (just thinking in the next step where we'll have automatic
+ * memory management)
+ *
+ */
 class Entity {
 public:
 	Entity(ecs::grpId_type gId) :
-			mngr_(nullptr), //
+			currCmps_(),
 			cmps_(), //
-			currCmps_(), //
 			alive_(),  //
 			gId_(gId) //
 	{
@@ -40,27 +51,9 @@ public:
 
 		// we delete all available components
 		//
-		for (auto c : currCmps_)
-			delete c;
-	}
-
-	// Each entity knows to which manager it belongs, we use
-	// this method to set the context
-	//
-	inline void setContext(Manager *mngr) {
-		mngr_ = mngr;
-	}
-
-	// Setting the state of the entity (alive or dead)
-	//
-	inline void setAlive(bool alive) {
-		alive_ = alive;
-	}
-
-	// Returns the state of the entity (alive o dead)
-	//
-	inline bool isAlive() {
-		return alive_;
+		for (auto c : cmps_)
+			if (c != nullptr)
+				delete c;
 	}
 
 	// Updating  an entity simply calls the update of all
@@ -81,96 +74,14 @@ public:
 			currCmps_[i]->render();
 	}
 
-	// Adds a component. It receives the type T (to be created), and the
-	// list of arguments (if any) to be passed to the constructor.
-	// The component identifier 'cId' is taken from T::id.
-	//
-	template<typename T, typename ...Ts>
-	inline T* addComponent(Ts &&... args) {
-
-		constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		// delete the current component, if any
-		//
-		removeComponent<T>();
-
-		// create, initialise and install the new component
-		//
-		Component *c = new T(std::forward<Ts>(args)...);
-		c->setContext(this, mngr_);
-		c->initComponent();
-		cmps_[cId] = c;
-		currCmps_.push_back(c);
-
-		// return it to the user so i can be initialised if needed
-		return static_cast<T*>(c);
-	}
-
-	// Removes the components at position T::id.
-	//
-	template<typename T>
-	inline void removeComponent() {
-
-		constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		if (cmps_[cId] != nullptr) {
-
-			// find the element that is equal tocmps_[cId] (returns an iterator)
-			//
-			auto iter = std::find(currCmps_.begin(), currCmps_.end(),
-					cmps_[cId]);
-
-			// and then remove it
-			currCmps_.erase(iter);
-
-			// destroy it
-			//
-			delete cmps_[cId];
-
-			// remove the pointer
-			//
-			cmps_[cId] = nullptr;
-		}
-	}
-
-	// Returns the component that corresponds to position T::id, casting it
-	// to T*. The casting is done just for ease of use, to avoid casting
-	// outside.
-	//
-	template<typename T>
-	inline T* getComponent() {
-
-		constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		return static_cast<T*>(cmps_[cId]);
-	}
-
-	// return true if there is a component with identifier T::id
-	//
-	template<typename T>
-	inline bool hasComponent() {
-
-		constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		return cmps_[cId] != nullptr;
-	}
-
-	// returns the entity's group 'gId'
-	//
-	inline ecs::grpId_type groupId() {
-		return gId_;
-	}
-
-
 private:
+	friend Manager;
 
-	Manager *mngr_;
-	std::array<Component*, maxComponentId> cmps_;
+	// the list of components is not really needed when using systems,
+	// but for now we keep it just in case
+	//
 	std::vector<Component*> currCmps_;
+	std::array<Component*, maxComponentId> cmps_;
 	bool alive_;
 	ecs::grpId_type gId_;
 };

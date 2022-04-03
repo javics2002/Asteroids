@@ -7,7 +7,7 @@
 namespace ecs {
 
 /*
- * Classes that inherit from Component must define a field
+ * Structs that inherit from Component must define a field
  *
  *   	constexpr static ecs::cmpId_type id = value;
  *
@@ -16,8 +16,14 @@ namespace ecs {
  * easily put them in an array). The list of possible identifiers
  * is defined as an enum in ecs.h
  *
+ * We use a struct to emphasise that it is actually a data structure
+ * in ECS, and also to have default visibility as public. In principle,
+ * we don't need the methods update/render because one of the reasons to
+ * use system is to avoid calling these virtual methods. Nevertheless, we
+ * leave them to allow using this version of ecs without systems as well.
+ *
  */
-class Component {
+struct Component {
 public:
 	Component() :
 			ent_(), //
@@ -61,9 +67,12 @@ public:
 	virtual void render() {
 	}
 
-protected: // we allow direct use these fields from subclasses
-
-	Entity *ent_; // a pointer to the entity, should not be deleted on destruction
+protected:
+	// as mentions above, when using systems these fields are not
+	// really needed, but we keep them for now from the same reason that
+	// we keep update/render
+	//
+	Entity *ent_; // a reference to the entity, should not be deleted on destruction
 	Manager *mngr_; //  a pointer to the manager, should not be deleted on destruction
 };
 

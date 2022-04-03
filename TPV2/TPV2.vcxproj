@@ -19,6 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\systems\RenderSystem.h" />
+    <ClInclude Include="src\systems\CollisionsSystem.h" />
+    <ClInclude Include="src\systems\FighterGunSystem.h" />
+    <ClInclude Include="src\systems\FighterSystem.h" />
+    <ClInclude Include="src\systems\BulletsSystem.h" />
+    <ClInclude Include="src\systems\AsteroidsSystem.h" />
+    <ClInclude Include="src\systems\GameCtrlSystem.h" />
     <ClInclude Include="src\components\Follow.h" />
     <ClInclude Include="src\components\FramedImage.h" />
     <ClInclude Include="src\components\GameState.h" />
@@ -28,6 +35,7 @@
     <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
+    <ClInclude Include="src\ecs\System.h" />
     <ClInclude Include="src\game\AsteroidsManager.h" />
     <ClInclude Include="src\game\Caza.h" />
     <ClInclude Include="src\components\GameCtrl.h" />
@@ -60,6 +68,13 @@
     <ClInclude Include="src\utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\systems\RenderSystem.cpp" />
+    <ClCompile Include="src\systems\CollisionsSystem.cpp" />
+    <ClCompile Include="src\systems\FighterGunSystem.cpp" />
+    <ClCompile Include="src\systems\FighterSystem.cpp" />
+    <ClCompile Include="src\systems\BulletsSystem.cpp" />
+    <ClCompile Include="src\systems\AsteroidsSystem.cpp" />
+    <ClCompile Include="src\systems\GameCtrlSystem.cpp" />
     <ClCompile Include="src\components\Follow.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
     <ClCompile Include="src\components\GameState.cpp" />

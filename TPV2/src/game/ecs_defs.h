@@ -36,3 +36,13 @@
     _hdlr_CAZA, \
 	_hdlr_GAMEINFO
 
+// Systems list - must have at least one element
+//
+#define _SYS_LIST_ \
+    _hdlr_COLLISION, \
+	_hdlr_RENDER, \
+	_hdlr_GAMECTRL, \
+	_hdlr_ASTEROIDS, \
+	_hdlr_BULLETS, \
+	_hdlr_FIGHTER, \
+	_hdlr_FIGHTERGUN
