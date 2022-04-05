@@ -1,9 +1,11 @@
 #pragma once
 #include "../ecs/System.h"
 #include "../utils/Vector2D.h"
+#include "../ecs/Manager.h"
 
 class Entity;
 
+const unsigned int BULLET_CD = 1000;
 class BulletsSystem : public ecs::System {
 public:
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
@@ -15,6 +17,9 @@ public:
 	void update() override;
 
 private:
+
+	unsigned int lastBulletTime = 0;
+	Transform* tr_ = nullptr;
 	// Para gestionar el mensaje de que el jugador ha disparado. Añadir una bala al
 	// juego, como en la práctica 1. Recuerda que la rotación de la bala sería
 	// vel.angle(Vector2D(0.0f,-1.0f))
@@ -30,5 +35,7 @@ private:
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_;
+
+	//Manager* mngr_  = nullptr; //  a pointer to the manager, should not be deleted on destruction
 };
 
