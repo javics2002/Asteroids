@@ -44,23 +44,23 @@ void Game::init() {
 	//
 	auto caza = mngr_->addEntity();
 	mngr_->setHandler(ecs::_hdlr_CAZA, caza);
-	auto tr = caza->addComponent<Transform>();
+	auto tr = mngr_->addComponent<Transform>(caza);
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
 	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
 
 	//A�adir componentes
-	caza->addComponent<Image>(&sdlutils().images().at("fighter"));
-	caza->addComponent<ShowAtOppositeSide>();
-	caza->addComponent<Health>(&sdlutils().images().at("heart"));
-	caza->addComponent<Deacceleration>();
+	mngr_->addComponent<Image>(caza, &sdlutils().images().at("fighter"));
+	mngr_->addComponent<ShowAtOppositeSide>(caza);
+	mngr_->addComponent<Health>(caza, &sdlutils().images().at("heart"));
+	mngr_->addComponent<Deacceleration>(caza);
 
 	aManager_ = new AsteroidsManager(mngr_);
 
 	gameController_ = mngr_->addEntity();
-	gameController_->addComponent<GameState>()->setState(GameState::NEWGAME);
-	gameController_->addComponent<GameCtrl>(aManager_);
+	mngr_->addComponent<GameState>(gameController_)->setState(GameState::NEWGAME);
+	mngr_->addComponent<GameCtrl>(gameController_, aManager_);
 }
 
 void Game::start() {
@@ -81,16 +81,16 @@ void Game::start() {
 			continue;
 		}
 
-		mngr_->update();
+		//mngr_->update();
 		mngr_->refresh();
 
 		checkCollisions();
 
-		if(gameController_->getComponent<GameState>()->getState() == GameState::RUNNING)
+		if(mngr_->getComponent<GameState>(gameController_)->getState() == GameState::RUNNING)
 			aManager_->addAsteroidFrequently();
 
 		sdlutils().clearRenderer();
-		mngr_->render();
+		//mngr_->render();
 		sdlutils().presentRenderer();
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
@@ -102,38 +102,38 @@ void Game::start() {
 }
 
 void Game::checkCollisions() {
-	auto cTR = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Transform>();
+	auto cTR = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_CAZA));
 
 	auto &asteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	auto n = asteroids.size();
 	for (auto i = 0u; i < n; i++) {
 		auto e = asteroids[i];
-		if (e->isAlive()) { 
-			auto eTR = e->getComponent<Transform>();
+		if (mngr_->isAlive(e)) { 
+			auto eTR = mngr_->getComponent<Transform>(e);
 
 			//Si un asteroide colisiona con una bala
 			auto& bullets = mngr_->getEntities(ecs::_grp_BULLETS);
 			auto m = bullets.size();
 			for (auto i = 0u; i < m; i++) {
 				auto b = bullets[i];
-				if (b->isAlive()) {
-					auto bTR = b->getComponent<Transform>();
+				if (mngr_->isAlive(b)) {
+					auto bTR = mngr_->getComponent<Transform>(b);
 
 					if (Collisions::collidesWithRotation(bTR->getPos(), bTR->getWidth(), bTR->getHeight(), bTR->getRot(),
 						eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) {
-						b->setAlive(false);
+						mngr_->setAlive(b, false);
 						
 						if (aManager_->onCollision(e)) {
 							//Gamamos!
-							gameController_->getComponent<GameState>()->setState(GameState::WIN);
+							mngr_->getComponent<GameState>(gameController_)->setState(GameState::WIN);
 
 							//Posición inicial
 							cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
 								(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
 
 							//Ya no podemos controlar al caza
-							mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<FighterCtrl>();
-							mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<Gun>();
+							mngr_->removeComponent<FighterCtrl>(mngr_->getHandler(ecs::_hdlr_CAZA));
+							mngr_->removeComponent<Gun>(mngr_->getHandler(ecs::_hdlr_CAZA));
 						}
 					}
 				}
@@ -145,14 +145,14 @@ void Game::checkCollisions() {
 				//Destruir entidades
 				aManager_->destroyAllAsteroids();
 				for (auto i = 0u; i < m; i++)
-					bullets[i]->setAlive(false);
+					mngr_->setAlive(bullets[i], false);
 
 				//Quitar vida
-				auto health = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>();
+				auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA));
 				health->onAsteroidCollision();
 
 				//Cambio de estado
-				gameController_->getComponent<GameState>()->
+				mngr_->getComponent<GameState>(gameController_)->
 					setState(health->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
 				
 				//Posición inicial
@@ -160,8 +160,8 @@ void Game::checkCollisions() {
 					(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
 
 				//Ya no podemos controlar al caza
-				mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<FighterCtrl>();
-				mngr_->getHandler(ecs::_hdlr_CAZA)->removeComponent<Gun>();
+				mngr_->removeComponent<FighterCtrl>(mngr_->getHandler(ecs::_hdlr_CAZA));
+				mngr_->removeComponent<Gun>(mngr_->getHandler(ecs::_hdlr_CAZA));
 			}
 		}
 	}
