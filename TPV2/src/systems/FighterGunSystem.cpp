@@ -25,6 +25,7 @@ void FighterGunSystem::receive(const Message& m)
 
 void FighterGunSystem::initSystem()
 {
+	active_ = false;
 }
 
 void FighterGunSystem::update()

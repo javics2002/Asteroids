@@ -40,7 +40,8 @@ void CollisionsSystem::update() {
 
 	// the fighter Transform
 	//
-	auto fTR = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_FIGHTER));
+	auto caza = mngr_->getHandler(ecs::_hdlr_CAZA);
+	auto fTR = mngr_->getComponent<Transform>(caza);
 
 	// For safety, we traverse with a normal loop until the current size. In this
 	// particular case we could use a for-each loop since the list is not

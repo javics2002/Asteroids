@@ -19,10 +19,16 @@
 #include "../components/Health.h"
 #include "../components/Deacceleration.h"
 #include "../components/Gun.h"
-#include "../systems/BulletsSystem.h"
-#include "../systems/AsteroidsSystem.h"
 #include "../ecs/ecs.h"
 #include "AsteroidsManager.h"
+
+#include "../systems/AsteroidsSystem.h"
+#include "../systems/FighterSystem.h"
+#include "../systems/FighterGunSystem.h"
+#include "../systems/BulletsSystem.h"
+#include "../systems/RenderSystem.h"
+#include "../systems/GameCtrlSystem.h"
+#include "../systems/CollisionsSystem.h"
 
 using ecs::Entity;
 using ecs::Manager;
@@ -43,11 +49,45 @@ void Game::init() {
 	// Create the manager
 	mngr_ = new Manager();
 
-	aManager_ = new AsteroidsManager(mngr_);
+	//Systems
+	fighterSys_ = new FighterSystem();
+	fighterSys_->setContext(mngr_);
+	fighterSys_->initSystem();
+	mngr_->addSystem<FighterSystem>(*fighterSys_);
+
+	asteroidsSys_ = new AsteroidsSystem();
+	asteroidsSys_->setContext(mngr_);
+	asteroidsSys_->initSystem();
+	mngr_->addSystem<AsteroidsSystem>(*asteroidsSys_);
+
+	fighterGunSys_ = new FighterGunSystem();
+	fighterGunSys_->setContext(mngr_);
+	fighterGunSys_->initSystem();
+	mngr_->addSystem<FighterGunSystem>(*fighterGunSys_);
+
+	bulletsSys_ = new BulletsSystem();
+	bulletsSys_->setContext(mngr_);
+	bulletsSys_->initSystem();
+	mngr_->addSystem<BulletsSystem>(*bulletsSys_);
+
+	gameCtrlSys_ = new GameCtrlSystem();
+	gameCtrlSys_->setContext(mngr_);
+	gameCtrlSys_->initSystem();
+	mngr_->addSystem<GameCtrlSystem>(*gameCtrlSys_);
+
+	collisionsSys_ = new CollisionsSystem();
+	collisionsSys_->setContext(mngr_);
+	collisionsSys_->initSystem();
+	mngr_->addSystem<CollisionsSystem>(*collisionsSys_);
+
+	renderSys_ = new RenderSystem();
+	renderSys_->setContext(mngr_);
+	renderSys_->initSystem();
+	mngr_->addSystem<RenderSystem>(*renderSys_);
 
 	gameController_ = mngr_->addEntity();
 	mngr_->addComponent<GameState>(gameController_)->setState(GameState::NEWGAME);
-	mngr_->addComponent<GameCtrl>(gameController_, aManager_);
+	//mngr_->addComponent<GameCtrl>(gameController_, aManager_);
 }
 
 void Game::start() {
@@ -70,13 +110,15 @@ void Game::start() {
 			continue;
 		}
 
+		updateSystems();
+
 		//mngr_->update();
 		mngr_->refresh();
 
 		checkCollisions();
 
-		if(mngr_->getComponent<GameState>(gameController_)->getState() == GameState::RUNNING)
-			aManager_->addAsteroidFrequently();
+		if (mngr_->getComponent<GameState>(gameController_)->getState() == GameState::RUNNING)
+			;//aManager_->addAsteroidFrequently();
 
 		sdlutils().clearRenderer();
 		//mngr_->render();
@@ -92,7 +134,8 @@ void Game::start() {
 
 void Game::checkCollisions() 
 {
-	auto cTR = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_CAZA));
+	auto caza = mngr_->getHandler(ecs::_hdlr_CAZA);
+	auto cTR = mngr_->getComponent<Transform>(caza);
 
 	auto &asteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	auto n = asteroids.size();
@@ -131,7 +174,7 @@ void Game::checkCollisions()
 							mngr_->getSystem<AsteroidsSystem>()->receive(m);
 						}
 						
-						if (aManager_->onCollision(e)) 
+						//if (aManager_->onCollision(e)) 
 						{
 							//Ganamos!
 							mngr_->getComponent<GameState>(gameController_)->setState(GameState::WIN);
@@ -153,7 +196,7 @@ void Game::checkCollisions()
 				eTR->pos_, eTR->width_, eTR->height_, eTR->rot_)) 
 			{
 				//Destruir entidades
-				aManager_->destroyAllAsteroids();
+				//aManager_->destroyAllAsteroids();
 				for (auto i = 0u; i < m; i++)
 					mngr_->setAlive(bullets[i], false);
 
@@ -173,4 +216,15 @@ void Game::checkCollisions()
 			}
 		}
 	}
+}
+
+void Game::updateSystems()
+{
+	asteroidsSys_->update();
+	fighterSys_->update();
+	fighterGunSys_->update();
+	bulletsSys_->update();
+	gameCtrlSys_->update();
+	collisionsSys_->update();
+	renderSys_->update();
 }

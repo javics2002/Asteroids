@@ -3,8 +3,7 @@
 #include <string>
 #include "../utils/Vector2D.h"
 #include "../sdlutils/SDLUtils.h"
-
-class Entity;
+#include "../ecs/Entity.h"
 
 class GameCtrlSystem : public ecs::System {
 public:

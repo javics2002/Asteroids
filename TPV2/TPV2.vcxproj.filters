@@ -88,4 +88,7 @@
     <ClInclude Include="src\game\messages_defs.h" />
     <ClInclude Include="src\ecs\messages.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\config\resources.json" />
+  </ItemGroup>
 </Project>
