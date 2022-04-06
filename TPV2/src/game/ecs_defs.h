@@ -46,3 +46,29 @@
 	_hdlr_BULLETS, \
 	_hdlr_FIGHTER, \
 	_hdlr_FIGHTERGUN
+
+using msgId_type = uint8_t;
+enum msgId : msgId_type {
+	_m_START,
+	_m_OVER, 
+	_m_UPDATE, 
+	_m_COLLISION, 
+	_m_SHOOT
+};
+
+struct Message {
+	msgId_type id;
+	// _m_SHOOT
+	struct 
+	{
+		Vector2D pos;
+		Vector2D vel;
+		double width;
+		double height;
+	} shoot_data;
+	// _m_ADD_STARS
+	struct {
+		unsigned int n;
+	} add_stars_data;
+};
+

@@ -20,7 +20,7 @@ Gun::~Gun() {
 }
 
 void Gun::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
+	tr_ = mngr_->getComponent<Transform>(ent_);
 	assert(tr_ != nullptr);
 }
 
@@ -48,12 +48,12 @@ void Gun::update() {
 					Vector2D(0.0f, tr_->getHeight() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
 				auto bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
 
-				auto tr = e->addComponent<Transform>();
+				auto tr = mngr_->addComponent<Transform>(e);
 				tr->init(bPos, bVel, 5.0f, 20.0f, tr_->getRot());
 
 				// add an Image Component
-				e->addComponent<Image>(&sdlutils().images().at("bullet"));
-				e->addComponent<DisableOnExit>();
+				mngr_->addComponent<Image>(e, &sdlutils().images().at("bullet"));
+				mngr_->addComponent<DisableOnExit>(e);
 
 				sdlutils().soundEffects().at("fire").play(0, 1);
 			}

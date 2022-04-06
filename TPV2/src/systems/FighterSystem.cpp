@@ -35,6 +35,10 @@ void FighterSystem::initSystem()
 
 void FighterSystem::update()
 {
+	if (active_)
+	{
+
+	}
 }
 
 void FighterSystem::onCollision_FighterAsteroid()

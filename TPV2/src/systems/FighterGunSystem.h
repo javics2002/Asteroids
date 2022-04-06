@@ -1,5 +1,9 @@
 #pragma once
 #include "../ecs/System.h"
+#include "../utils/Vector2D.h"
+
+const unsigned int BULLET_CD = 1000;
+
 class FighterGunSystem : public ecs::System {
 public:
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
@@ -12,6 +16,7 @@ public:
 	void update() override;
 
 private:
+	unsigned int lastBulletTime = 0;
 	// Para gestionar el mensaje de que ha acabado una ronda. Desactivar el sistema.
 	void onRoundOver();
 	// Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.
