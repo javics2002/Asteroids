@@ -40,22 +40,6 @@ void Game::init() {
 	// Create the manager
 	mngr_ = new Manager();
 
-	// create the Fighter entity
-	//
-	auto caza = mngr_->addEntity();
-	mngr_->setHandler(ecs::_hdlr_CAZA, caza);
-	auto tr = mngr_->addComponent<Transform>(caza);
-	auto s = 50.0f;
-	auto x = (sdlutils().width() - s) / 2.0f;
-	auto y = (sdlutils().height() - s) / 2.0f;
-	tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
-
-	//A�adir componentes
-	mngr_->addComponent<Image>(caza, &sdlutils().images().at("fighter"));
-	mngr_->addComponent<ShowAtOppositeSide>(caza);
-	mngr_->addComponent<Health>(caza, &sdlutils().images().at("heart"));
-	mngr_->addComponent<Deacceleration>(caza);
-
 	aManager_ = new AsteroidsManager(mngr_);
 
 	gameController_ = mngr_->addEntity();
@@ -70,13 +54,15 @@ void Game::start() {
 
 	auto &ihdlr = ih();
 
-	while (!exit) {
+	while (!exit) 
+	{
 		Uint32 startTime = sdlutils().currRealTime();
 
 		// refresh the input handler
 		ihdlr.refresh();
 
-		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) 
+		{
 			exit = true;
 			continue;
 		}
@@ -101,30 +87,37 @@ void Game::start() {
 
 }
 
-void Game::checkCollisions() {
+void Game::checkCollisions() 
+{
 	auto cTR = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_CAZA));
 
 	auto &asteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	auto n = asteroids.size();
-	for (auto i = 0u; i < n; i++) {
+	for (auto i = 0u; i < n; i++) 
+	{
 		auto e = asteroids[i];
-		if (mngr_->isAlive(e)) { 
+		if (mngr_->isAlive(e)) 
+		{ 
 			auto eTR = mngr_->getComponent<Transform>(e);
 
 			//Si un asteroide colisiona con una bala
 			auto& bullets = mngr_->getEntities(ecs::_grp_BULLETS);
 			auto m = bullets.size();
-			for (auto i = 0u; i < m; i++) {
+			for (auto i = 0u; i < m; i++) 
+			{
 				auto b = bullets[i];
-				if (mngr_->isAlive(b)) {
+				if (mngr_->isAlive(b)) 
+				{
 					auto bTR = mngr_->getComponent<Transform>(b);
 
 					if (Collisions::collidesWithRotation(bTR->getPos(), bTR->getWidth(), bTR->getHeight(), bTR->getRot(),
-						eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) {
-						mngr_->setAlive(b, false);
+						eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) 
+					{
+						//mngr_->setAlive(b, false); Llamar a BulletsSystem
 						
-						if (aManager_->onCollision(e)) {
-							//Gamamos!
+						if (aManager_->onCollision(e)) 
+						{
+							//Ganamos!
 							mngr_->getComponent<GameState>(gameController_)->setState(GameState::WIN);
 
 							//Posición inicial
@@ -141,19 +134,18 @@ void Game::checkCollisions() {
 
 			//Si un asteroide colisiona con el caza
 			if (Collisions::collidesWithRotation(cTR->getPos(), cTR->getWidth(), cTR->getHeight(), cTR->getRot(), 
-				eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) {
+				eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) 
+			{
 				//Destruir entidades
 				aManager_->destroyAllAsteroids();
 				for (auto i = 0u; i < m; i++)
 					mngr_->setAlive(bullets[i], false);
 
-				//Quitar vida
-				auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA));
-				health->onAsteroidCollision();
+				//LLamar a FighterSystem
 
 				//Cambio de estado
 				mngr_->getComponent<GameState>(gameController_)->
-					setState(health->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
+					setState(mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA))->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
 				
 				//Posición inicial
 				cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f, 
