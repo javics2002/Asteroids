@@ -35,9 +35,11 @@ void FighterGunSystem::update()
 
 		if (ihldr.keyDownEvent()) 
 		{
+			auto ent_ = mngr_->getHandler(ecs::_hdlr_CAZA);
 
-			//auto& vel_ = tr_->vel_;
-			//auto rot = tr_->rot_;
+			Vector2D vel = mngr_->getComponent<Transform>(ent_)->vel_;
+			Vector2D pos = mngr_->getComponent<Transform>(ent_)->pos_;
+			
 
 			if (ihldr.isKeyDown(SDL_SCANCODE_S))
 			{
@@ -47,7 +49,10 @@ void FighterGunSystem::update()
 
 					Message m;
 					m.id = _m_SHOOT;
-					//m.shoot_data.e = {};
+					m.shoot_data.vel = vel;
+					m.shoot_data.pos = pos;
+					m.shoot_data.width = BULLET_W;
+					m.shoot_data.height = BULLET_H;
 					mngr_->getSystem<BulletsSystem>()->receive(m);
 				}
 			}

@@ -10,6 +10,7 @@
 #include "../components/Image.h"
 #include "../components/ShowAtOppositeSide.h"
 #include "../components/Deacceleration.h"
+#include "../components/FighterCtrl.h"
 
 void FighterSystem::receive(const Message& m)
 {
@@ -48,7 +49,9 @@ void FighterSystem::update()
 {
 	if (active_)
 	{
-
+		auto caza = mngr_->getHandler(ecs::_hdlr_CAZA);
+		mngr_->getComponent<FighterCtrl>(caza)->move();
+		mngr_->getComponent<Deacceleration>(caza)->brake();
 	}
 }
 

@@ -3,6 +3,8 @@
 #include "../utils/Vector2D.h"
 
 const unsigned int BULLET_CD = 1000;
+const int BULLET_H = 20.0f;
+const int BULLET_W = 5.0f;
 
 class FighterGunSystem : public ecs::System {
 public:

@@ -1,10 +1,10 @@
 #pragma once
 #include "../ecs/System.h"
-
-class Entity;
+#include "../ecs/Entity.h"
 
 class AsteroidsSystem : public ecs::System {
 public:
+	__SYSID_DECL__(ecs::_hdlr_ASTEROIDS)
 	AsteroidsSystem();
 	~AsteroidsSystem();
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).

@@ -11,6 +11,7 @@ public:
 	virtual ~DisableOnExit();
 	void initComponent() override;
 	void update() override;
+	void check();
 private:
 	Transform* tr_;
 };

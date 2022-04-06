@@ -19,6 +19,7 @@ public:
 	virtual ~FighterCtrl();
 	void initComponent() override;
 	void update() override;
+	void move();
 
 private:
 	void createStart();

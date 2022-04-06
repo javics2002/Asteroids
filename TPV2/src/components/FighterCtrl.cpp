@@ -25,11 +25,16 @@ void FighterCtrl::initComponent() {
 
 void FighterCtrl::update() {
 
-	auto &ihldr = ih();
+	
+}
+
+void FighterCtrl::move()
+{
+	auto& ihldr = ih();
 
 	if (ihldr.keyDownEvent()) {
 
-		auto &vel_ = tr_->vel_;
+		auto& vel_ = tr_->vel_;
 		auto rot = tr_->rot_;
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { // rotate right
@@ -55,7 +60,7 @@ void FighterCtrl::update() {
 			Vector2D newVel = vel_ + Vector2D(0, -1).rotate(rot) * THRUST;
 
 			if (newVel.magnitude() > SPEED_LIMIT)
-				newVel = newVel.normalize()* SPEED_LIMIT;
+				newVel = newVel.normalize() * SPEED_LIMIT;
 
 			vel_ = newVel;
 

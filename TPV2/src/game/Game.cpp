@@ -19,6 +19,9 @@
 #include "../components/Health.h"
 #include "../components/Deacceleration.h"
 #include "../components/Gun.h"
+#include "../systems/BulletsSystem.h"
+#include "../systems/AsteroidsSystem.h"
+#include "../ecs/ecs.h"
 #include "AsteroidsManager.h"
 
 using ecs::Entity;
@@ -113,14 +116,19 @@ void Game::checkCollisions()
 					if (Collisions::collidesWithRotation(bTR->pos_, bTR->width_, bTR->height_, bTR->rot_,
 						eTR->pos_, eTR->width_, eTR->height_, eTR->rot_)) 
 					{
-					    //mngr_->setAlive(b, false); Llamar a BulletsSystem
+						//Destruir bala
+						Message m;
+						m.id = _m_ON_COLLISION_BULLET_ASTEROID;
+						m.bullet_hit_asteroid.a = b;
+						mngr_->getSystem<BulletsSystem>()->receive(m);
 
 						if (mngr_->isAlive(e))
 						{
+							//Destruir asteroide
 							Message m;
 							m.id = _m_ON_COLLISION_BULLET_ASTEROID;
 							m.bullet_hit_asteroid.a = e;
-							mngr_->send(m);
+							mngr_->getSystem<AsteroidsSystem>()->receive(m);
 						}
 						
 						if (aManager_->onCollision(e)) 

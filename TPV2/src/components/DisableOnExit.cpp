@@ -25,11 +25,16 @@ void DisableOnExit::initComponent()
 
 void DisableOnExit::update()
 {
+
+}
+
+void DisableOnExit::check()
+{
 	auto& pos = tr_->pos_;
 
 	// check borders
-	if (pos.getX() + tr_->width_ < 0 || pos.getX() > sdlutils().width() || 
-		pos.getY() + tr_->height_ < 0 || pos.getY() > sdlutils().height()) 
+	if (pos.getX() + tr_->width_ < 0 || pos.getX() > sdlutils().width() ||
+		pos.getY() + tr_->height_ < 0 || pos.getY() > sdlutils().height())
 	{
 		mngr_->setAlive(ent_, false);
 	}
