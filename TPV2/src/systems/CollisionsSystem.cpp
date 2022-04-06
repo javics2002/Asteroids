@@ -83,8 +83,6 @@ void CollisionsSystem::update() {
 						m.id = _m_ON_COLLISION_ASTEROID_BULLET;
 						m.bullet_hit_asteroid.a = asteroidEntity;
 						mngr_->send(m);
-
-
 					}
 				}
 			}

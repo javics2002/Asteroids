@@ -23,11 +23,9 @@ public:
 	void init();
 	void start();
 private:
-	void checkCollisions();
 	void updateSystems();
 
 	ecs::Manager *mngr_;
-	ecs::Entity* gameController_;
 
 	AsteroidsSystem* asteroidsSys_;
 	FighterSystem* fighterSys_;

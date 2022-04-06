@@ -37,10 +37,11 @@ void FighterGunSystem::update()
 		if (ihldr.keyDownEvent()) 
 		{
 			auto ent_ = mngr_->getHandler(ecs::_hdlr_CAZA);
+			auto tr_ = mngr_->getComponent<Transform>(ent_);
 
-			Vector2D vel = mngr_->getComponent<Transform>(ent_)->vel_;
-			Vector2D pos = mngr_->getComponent<Transform>(ent_)->pos_;
-			
+			auto pos = tr_->pos_ + Vector2D(tr_->width_ / 2.0f, tr_->height_ / 2.0f) -
+				Vector2D(0.0f, tr_->height_ / 2.0f + 5.0f + 12.0f).rotate(tr_->rot_) - Vector2D(2.0f, 10.0f);
+			auto vel = Vector2D(0.0f, -1.0f).rotate(tr_->rot_) * (tr_->vel_.magnitude() + 5.0f);
 
 			if (ihldr.isKeyDown(SDL_SCANCODE_S))
 			{

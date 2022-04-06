@@ -3,16 +3,12 @@
   <ItemGroup>
     <ClCompile Include="src\components\Follow.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
-    <ClCompile Include="src\components\GameState.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\DisableOnExit.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
     <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\components\Gun.cpp" />
     <ClCompile Include="src\components\Deacceleration.cpp" />
-    <ClCompile Include="src\game\AsteroidsManager.cpp" />
-    <ClCompile Include="src\game\Caza.cpp" />
-    <ClCompile Include="src\components\GameCtrl.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
     <ClCompile Include="src\components\FighterCtrl.cpp" />
     <ClCompile Include="src\components\StopOnBorders.cpp" />
@@ -40,16 +36,12 @@
   <ItemGroup>
     <ClInclude Include="src\components\Follow.h" />
     <ClInclude Include="src\components\FramedImage.h" />
-    <ClInclude Include="src\components\GameState.h" />
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\DisableOnExit.h" />
     <ClInclude Include="src\components\Generations.h" />
     <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
-    <ClInclude Include="src\game\AsteroidsManager.h" />
-    <ClInclude Include="src\game\Caza.h" />
-    <ClInclude Include="src\components\GameCtrl.h" />
     <ClInclude Include="src\components\Image.h" />
     <ClInclude Include="src\components\FighterCtrl.h" />
     <ClInclude Include="src\components\StopOnBorders.h" />

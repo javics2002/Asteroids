@@ -1,4 +1,4 @@
-#include "AsteroidsSystem.h"
+﻿#include "AsteroidsSystem.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../components/Transform.h"
@@ -44,6 +44,7 @@ void AsteroidsSystem::update()
 
 		for (int i = 0u; i < asteroids.size(); i++) {
 			mngr_->getComponent<Transform>(asteroids[i])->move();
+			asteroids[i]->update();
 		}
 
 		addAsteroidFrequently();
@@ -84,11 +85,7 @@ void AsteroidsSystem::onCollision_AsteroidBullet(ecs::Entity* a)
 			numOfAsteroids_++;
 			i++;
 		}
-
-		sdlutils().soundEffects().at("bangLarge").play(0, 1);
 	}
-	else
-		sdlutils().soundEffects().at("bangSmall").play(0, 1);
 
 	mngr_->setAlive(a, false);
 }

@@ -17,7 +17,6 @@ public:
 	virtual ~Deacceleration();
 	void initComponent() override;
 	void update() override;
-	void brake();
 
 private:
 	void createStart();

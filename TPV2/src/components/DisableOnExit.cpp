@@ -25,11 +25,6 @@ void DisableOnExit::initComponent()
 
 void DisableOnExit::update()
 {
-
-}
-
-void DisableOnExit::check()
-{
 	auto& pos = tr_->pos_;
 
 	// check borders

@@ -3,7 +3,6 @@
 #include "../components/Health.h"
 #include "../ecs/Manager.h"
 #include "../game/Game.h"
-#include "../components/GameState.h"
 #include "../utils/Vector2D.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Transform.h"
@@ -21,6 +20,9 @@ void FighterSystem::receive(const Message& m)
 		break;
 	case _m_ROUND_START:
 		onRoundStart();
+		break;
+	case _m_ON_COLLISION_FIGHTER_ASTEROID:
+		onCollision_FighterAsteroid();
 		break;
 	default:
 		break;
@@ -43,16 +45,13 @@ void FighterSystem::initSystem()
 	mngr_->addComponent<ShowAtOppositeSide>(caza);
 	mngr_->addComponent<Health>(caza, &sdlutils().images().at("heart"));
 	mngr_->addComponent<Deacceleration>(caza);
+	mngr_->addComponent<FighterCtrl>(caza);
 }
 
 void FighterSystem::update()
 {
 	if (active_)
-	{
-		auto caza = mngr_->getHandler(ecs::_hdlr_CAZA);
-		mngr_->getComponent<FighterCtrl>(caza)->move();
-		mngr_->getComponent<Deacceleration>(caza)->brake();
-	}
+		mngr_->getHandler(ecs::_hdlr_CAZA)->update();
 }
 
 void FighterSystem::onCollision_FighterAsteroid()

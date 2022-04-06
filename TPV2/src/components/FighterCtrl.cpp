@@ -24,12 +24,6 @@ void FighterCtrl::initComponent() {
 }
 
 void FighterCtrl::update() {
-
-	
-}
-
-void FighterCtrl::move()
-{
 	auto& ihldr = ih();
 
 	if (ihldr.keyDownEvent()) {
@@ -67,4 +61,6 @@ void FighterCtrl::move()
 			sdlutils().soundEffects().at("thrust").play(0);
 		}
 	}
+
+	tr_->pos_ = tr_->pos_ + tr_->vel_;
 }

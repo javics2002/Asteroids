@@ -42,8 +42,8 @@ void BulletsSystem::update()
 
 		for (int i = 0u; i < bullets.size(); i++) 
 		{
+			bullets[i]->update();
 			mngr_->getComponent<Transform>(bullets[i])->move();
-			mngr_->getComponent<DisableOnExit>(bullets[i])->check();
 		}
 	}
 }
@@ -53,10 +53,6 @@ void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double width, double heigh
 	auto e = mngr_->addEntity(ecs::_grp_BULLETS);
 
 	//// add a Transform component, and initialize it with random size and position
-	////
-	//auto bPos = pos + Vector2D(width / 2.0f, height / 2.0f) -
-	//	Vector2D(0.0f, height / 2.0f + 5.0f + 12.0f).rotate(vel.angle(Vector2D(0.0f, -1.0f)));
-	//auto bVel = Vector2D(0.0f, -1.0f).rotate(vel.angle(Vector2D(0.0f, -1.0f)) * (vel.magnitude() + 5.0f));
 
 	auto tr = mngr_->addComponent<Transform>(e);
 	tr->init(pos, vel, width, height, vel.angle(Vector2D(0.0f, -1.0f)));
@@ -75,8 +71,10 @@ void BulletsSystem::onCollision_BulletAsteroid(ecs::Entity* b)
 
 void BulletsSystem::onRoundOver()
 {
+	active_ = false;
 }
 
 void BulletsSystem::onRoundStart()
 {
+	active_ = true;
 }
