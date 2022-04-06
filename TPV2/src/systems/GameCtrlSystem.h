@@ -8,6 +8,9 @@ class GameCtrlSystem : public ecs::System {
 public:
 	__SYSID_DECL__(ecs::_hdlr_GAMECTRL)
 
+	GameCtrlSystem();
+	~GameCtrlSystem();
+
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	void receive(const Message& m) override;
 	// Inicializar el sistema, etc.
@@ -17,6 +20,23 @@ public:
 	// de los 10 al principio de cada ronda).
 	void update() override;
 
+private:
+	// Para gestionar el mensaje de que ha habido un choque entre el fighter y un
+	// un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
+	// al fighter, y si no hay más vidas avisar que ha acabado el juego (y quien
+	// es el ganador).
+	void onCollision_FighterAsteroid();
+
+	// Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que
+	// ha acabado la ronda y además que ha acabado el juego (y quien es el ganador)
+	void onAsteroidsExtinction();
+
+	void startRound();
+	void startGame();
+
+	Uint8 winner_; // 0 - None, 1 - Asteroids, 2- Fighter
+	Uint8 state_; // El estado actual del juego (en lugar del componente State)
+
 	enum State {
 		NEWGAME = 0, // just before starting a new game
 		PAUSED, // between rounds
@@ -24,35 +44,5 @@ public:
 		GAMEOVER, // game over
 		WIN // win
 	};
-
-	inline State getState() {
-		return state_;
-	}
-
-	inline void setState(State state) {
-		state_ = state;
-	}
-
-private:
-	// Para gestionar el mensaje de que ha habido un choque de un asteroide con una
-	// bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
-	// y si no hay más asteroides enviar un mensaje correspondiente.
-	void onCollision_AsteroidBullet(Entity* a);
-	// Para gestionar el mensaje de que ha acabado la ronda. Desactivar todos los
-	// asteroides, y desactivar el sistema.
-	void onRoundOver();
-	// Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema y
-	// añadir los asteroides iniciales (como en la práctica 1).
-	void onRoundStart();
-	// El número actual de asteroides en el juego (recuerda que no puede superar un
-	// límite)
-	uint8_t numOfAsteroids_;
-	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
-	// onRoundStart, y en update no hacer nada si no está activo)
-	bool active_;
-
-	State state_;
-
-	void showMessage(std::string key);
 };
 

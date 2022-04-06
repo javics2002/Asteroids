@@ -1,8 +1,14 @@
 #pragma once
 #include "../ecs/System.h"
+#include <string>
 
 class RenderSystem : public ecs::System {
 public:
+	__SYSID_DECL__(ecs::_hdlr_RENDER)
+
+	RenderSystem();
+	~RenderSystem();
+
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	void receive(const Message& m) override;
 		// Inicializar el sistema, etc.
@@ -22,6 +28,17 @@ private:
 	void onRoundOver();
 	void onGameStart();
 	void onGameOver();
+
+	void showMessage(std::string key);
+
 	uint8_t winner_; // 0 - None, 1 - Asteroid, 2- Fighter
 	uint8_t state_; // El estado actual de juego (como en GameCtrlSystem)
+
+	enum State {
+		NEWGAME = 0, // just before starting a new game
+		PAUSED, // between rounds
+		RUNNING, // playing
+		GAMEOVER, // game over
+		WIN // win
+	};
 };
