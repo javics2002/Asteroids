@@ -4,6 +4,7 @@
 
 #include "ecs.h"
 #include "messages.h"
+#include "../sdlutils/SDLUtils.h"
 
 namespace ecs {
 

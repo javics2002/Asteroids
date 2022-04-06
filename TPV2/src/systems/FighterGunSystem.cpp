@@ -6,18 +6,16 @@
 #include "../components/Image.h"
 #include "../components/DisableOnExit.h"
 #include "../systems/BulletsSystem.h"
+#include "../sdlutils/InputHandler.h"
 
 void FighterGunSystem::receive(const Message& m)
 {
 	switch (m.id)
 	{
-		case _m_UPDATE:
-			update();
-			break;
-		case _m_OVER:
+		case _m_ROUND_OVER:
 			onRoundOver();
 			break;
-		case _m_START:
+		case _m_ROUND_START:
 			onRoundStart();
 			break;
 		default:
@@ -38,8 +36,8 @@ void FighterGunSystem::update()
 		if (ihldr.keyDownEvent()) 
 		{
 
-			//auto& vel_ = tr_->getVel();
-			//auto rot = tr_->getRot();
+			//auto& vel_ = tr_->vel_;
+			//auto rot = tr_->rot_;
 
 			if (ihldr.isKeyDown(SDL_SCANCODE_S))
 			{

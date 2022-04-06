@@ -1,6 +1,8 @@
 #pragma once
 #include "../ecs/System.h"
 #include <string>
+#include "../utils/Vector2D.h"
+#include "../sdlutils/SDLUtils.h"
 
 class Entity;
 
@@ -20,6 +22,9 @@ public:
 	// de los 10 al principio de cada ronda).
 	void update() override;
 
+	Uint8 winner_; // 0 - None, 1 - Asteroids, 2- Fighter
+	Uint8 state_ = 0; // El estado actual del juego (en lugar del componente State)
+
 private:
 	// Para gestionar el mensaje de que ha habido un choque entre el fighter y un
 	// un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
@@ -33,9 +38,6 @@ private:
 
 	void startRound();
 	void startGame();
-
-	Uint8 winner_; // 0 - None, 1 - Asteroids, 2- Fighter
-	Uint8 state_; // El estado actual del juego (en lugar del componente State)
 
 	enum State {
 		NEWGAME = 0, // just before starting a new game

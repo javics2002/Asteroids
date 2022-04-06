@@ -13,16 +13,16 @@ Follow::Follow() {
 
 void Follow::initComponent()
 {
-	tr_ = ent_->getComponent<Transform>();
-	trFighter_ = mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Transform>();
+	tr_ = mngr_->getComponent<Transform>(ent_);
+	trFighter_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_CAZA));
 	assert(tr_ != nullptr);
 }
 
 void Follow::update()
 {
-    auto& currentVel = tr_->getVel();
+    auto& currentVel = tr_->vel_;
 
-    if (currentVel.angle(trFighter_->getPos() - tr_->getPos()) > 0) {
+    if (currentVel.angle(trFighter_->pos_ - tr_->pos_) > 0) {
         currentVel = currentVel.rotate(1.0f);
     }
     else {

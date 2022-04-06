@@ -5,6 +5,8 @@ class Entity;
 
 class AsteroidsSystem : public ecs::System {
 public:
+	AsteroidsSystem();
+	~AsteroidsSystem();
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	void receive(const Message& m) override;
 	// Inicializar el sistema, etc.

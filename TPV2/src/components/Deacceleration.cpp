@@ -17,13 +17,13 @@ Deacceleration::~Deacceleration() {
 }
 
 void Deacceleration::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
+	tr_ = mngr_->getComponent<Transform>(ent_);
 	assert(tr_ != nullptr);
 }
 
 void Deacceleration::update()
 {
-	auto& vel_ = tr_->getVel();
+	auto& vel_ = tr_->vel_;
 
 	if (vel_.magnitude() < 0.05)
 	{

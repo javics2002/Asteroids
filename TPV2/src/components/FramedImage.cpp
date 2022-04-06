@@ -7,6 +7,7 @@
 #include "../sdlutils/macros.h"
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
+#include "../ecs/Manager.h"
 
 FramedImage::FramedImage(Texture* tex) : tr_(), tex_(tex) {
 }
@@ -14,7 +15,7 @@ FramedImage::FramedImage(Texture* tex) : tr_(), tex_(tex) {
 void FramedImage::initComponent()
 {
     deltatime = sdlutils().currRealTime();
-	tr_ = ent_->getComponent<Transform>();
+	tr_ = mngr_->getComponent<Transform>(ent_);
 	assert(tr_ != nullptr);
 }
 
@@ -50,8 +51,8 @@ void FramedImage::render()
         }
     }
 
-    SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getWidth(),
-        tr_->getHeight());
+    SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_,
+        tr_->height_);
 
     // x, y
     // filas, columnas
@@ -62,5 +63,5 @@ void FramedImage::render()
 
 
     assert(tex_ != nullptr);
-    tex_->render(src, dest, tr_->getRot());
+    tex_->render(src, dest, tr_->rot_);
 }

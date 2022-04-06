@@ -26,7 +26,7 @@ GameCtrl::~GameCtrl() {
 }
 
 void GameCtrl::initComponent() {
-	currentState_ = ent_->getComponent<GameState>();
+	currentState_ = mngr_->getComponent<GameState>(ent_);
 	assert(currentState_ != nullptr);
 }
 
@@ -42,15 +42,15 @@ void GameCtrl::update() {
 				aMngr_->createAsteroids(10);
 
 				// añadir al fighter sus cosas para jugar
-				mngr_->getHandler(ecs::_hdlr_CAZA)->addComponent<FighterCtrl>();
-				mngr_->getHandler(ecs::_hdlr_CAZA)->addComponent<Gun>();
+				mngr_->addComponent<FighterCtrl>(mngr_->getHandler(ecs::_hdlr_CAZA));
+				mngr_->addComponent<Gun>(mngr_->getHandler(ecs::_hdlr_CAZA));
 
 				break;
 			case GameState::GAMEOVER:
 			case GameState::WIN:
 				currentState_->setState(GameState::NEWGAME);
 
-				mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>()->resetLives();
+				mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA))->resetLives();
 				break;
 			default:
 				

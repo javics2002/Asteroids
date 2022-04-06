@@ -8,10 +8,13 @@ struct Transform;
 class CollisionsSystem : public ecs::System {
 public:
 
+    CollisionsSystem();
+    ~CollisionsSystem();
+
     __SYSID_DECL__(ecs::_hdlr_COLLISION)
 
-        // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
-        void receive(const Message& m) override;
+    // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
+    void receive(const Message& m) override;
 
     // Inicializar el sistema, etc.
     void initSystem() override;

@@ -30,20 +30,20 @@ void AsteroidsManager::createAsteroids(int n)
 		Vector2D vel = (c - pos).normalize() * speed;
 
 		auto asteroid = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-		auto generations = asteroid->addComponent<Generations>();
+		auto generations = mngr_->addComponent<Generations>(asteroid);
 		float dimension = 10.0f + 5.0f * generations->getGenerations();
 
-		asteroid->addComponent<Transform>(pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
-		asteroid->addComponent<ShowAtOppositeSide>();
+		mngr_->addComponent<Transform>(asteroid, pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
+		mngr_->addComponent<ShowAtOppositeSide>(asteroid);
 
 		//Tipo B
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
-			asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"));
-			asteroid->addComponent<Follow>();
+			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"));
+			mngr_->addComponent<Follow>(asteroid);
 		}
 		//Tipo A
 		else {
-			asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"));
+			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"));
 		}
 
 		currentAsteroids++;
@@ -64,7 +64,7 @@ void AsteroidsManager::destroyAllAsteroids()
 	auto groupAsteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 
 	for (auto asteroid : groupAsteroids)
-		asteroid->setAlive(false);
+		mngr_->setAlive(asteroid, false);
 
 	currentAsteroids = 0;
 }
@@ -72,32 +72,32 @@ void AsteroidsManager::destroyAllAsteroids()
 bool AsteroidsManager::onCollision(ecs::Entity* a)
 {
 	currentAsteroids--;
-	Transform* trA = a->getComponent<Transform>();
-	Vector2D p = trA->getPos();
-	Vector2D v = trA->getVel();
-	unsigned int numGenerations = a->getComponent<Generations>()->getGenerations() - 1;
+	Transform* trA = mngr_->getComponent<Transform>(a);
+	Vector2D p = trA->pos_;
+	Vector2D v = trA->vel_;
+	unsigned int numGenerations = mngr_->getComponent<Generations>(a)->getGenerations() - 1;
 
 	if (numGenerations > 0) {
 		int i = 0;
 		while (i < 2 && currentAsteroids < MAX_ASTEROIDS) {
 			int r = sdlutils().rand().nextInt(0, 360);
-			Vector2D pos = p + v.rotate(r) * 2 * std::max(trA->getWidth(), trA->getHeight());
+			Vector2D pos = p + v.rotate(r) * 2 * std::max(trA->width_, trA->height_);
 			Vector2D vel = v.rotate(r) * 1.1f;
 
 			auto asteroid = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-			auto generations = asteroid->addComponent<Generations>(numGenerations);
+			auto generations = mngr_->addComponent<Generations>(asteroid, numGenerations);
 			float dimension = 10.0f + 5.0f * generations->getGenerations();
-			asteroid->addComponent<Transform>(pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
-			asteroid->addComponent<ShowAtOppositeSide>();
+			mngr_->addComponent<Transform>(asteroid, pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
+			mngr_->addComponent<ShowAtOppositeSide>(asteroid);
 
 			//Tipo B
 			if (sdlutils().rand().nextInt(0, 10) < 3) {
-				asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid_gold"));
-				asteroid->addComponent<Follow>();
+				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"));
+				mngr_->addComponent<Follow>(asteroid);
 			}
 			//Tipo A
 			else {
-				asteroid->addComponent<FramedImage>(&sdlutils().images().at("asteroid"));
+				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"));
 			}
 
 			currentAsteroids++;
@@ -105,7 +105,7 @@ bool AsteroidsManager::onCollision(ecs::Entity* a)
 		}
 	}
 
-	a->setAlive(false);
+	mngr_->setAlive(a, false);
 
 	//¿Hemos ganado?
 	return currentAsteroids == 0;

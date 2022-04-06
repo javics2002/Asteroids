@@ -1,6 +1,7 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
 #pragma once
+#include "../ecs/ecs.h"
 #include "../ecs/Component.h"
 
 class Transform;

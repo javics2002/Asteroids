@@ -110,10 +110,18 @@ void Game::checkCollisions()
 				{
 					auto bTR = mngr_->getComponent<Transform>(b);
 
-					if (Collisions::collidesWithRotation(bTR->getPos(), bTR->getWidth(), bTR->getHeight(), bTR->getRot(),
-						eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) 
+					if (Collisions::collidesWithRotation(bTR->pos_, bTR->width_, bTR->height_, bTR->rot_,
+						eTR->pos_, eTR->width_, eTR->height_, eTR->rot_)) 
 					{
-						//mngr_->setAlive(b, false); Llamar a BulletsSystem
+					    //mngr_->setAlive(b, false); Llamar a BulletsSystem
+
+						if (mngr_->isAlive(e))
+						{
+							Message m;
+							m.id = _m_ON_COLLISION_BULLET_ASTEROID;
+							m.bullet_hit_asteroid.a = e;
+							mngr_->send(m);
+						}
 						
 						if (aManager_->onCollision(e)) 
 						{
@@ -121,8 +129,8 @@ void Game::checkCollisions()
 							mngr_->getComponent<GameState>(gameController_)->setState(GameState::WIN);
 
 							//Posición inicial
-							cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
-								(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+							cTR->init(Vector2D((sdlutils().width() - cTR->width_) / 2.0f,
+								(sdlutils().height() - cTR->height_) / 2.0f), Vector2D(), cTR->width_, cTR->height_, 0.0f);
 
 							//Ya no podemos controlar al caza
 							mngr_->removeComponent<FighterCtrl>(mngr_->getHandler(ecs::_hdlr_CAZA));
@@ -133,8 +141,8 @@ void Game::checkCollisions()
 			}
 
 			//Si un asteroide colisiona con el caza
-			if (Collisions::collidesWithRotation(cTR->getPos(), cTR->getWidth(), cTR->getHeight(), cTR->getRot(), 
-				eTR->getPos(), eTR->getWidth(), eTR->getHeight(), eTR->getRot())) 
+			if (Collisions::collidesWithRotation(cTR->pos_, cTR->width_, cTR->height_, cTR->rot_, 
+				eTR->pos_, eTR->width_, eTR->height_, eTR->rot_)) 
 			{
 				//Destruir entidades
 				aManager_->destroyAllAsteroids();
@@ -148,8 +156,8 @@ void Game::checkCollisions()
 					setState(mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA))->getLives() > 0 ? GameState::PAUSED : GameState::GAMEOVER);
 				
 				//Posición inicial
-				cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f, 
-					(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+				cTR->init(Vector2D((sdlutils().width() - cTR->width_) / 2.0f, 
+					(sdlutils().height() - cTR->height_) / 2.0f), Vector2D(), cTR->width_, cTR->height_, 0.0f);
 
 				//Ya no podemos controlar al caza
 				mngr_->removeComponent<FighterCtrl>(mngr_->getHandler(ecs::_hdlr_CAZA));

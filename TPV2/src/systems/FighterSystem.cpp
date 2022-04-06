@@ -13,6 +13,17 @@
 
 void FighterSystem::receive(const Message& m)
 {
+	switch (m.id)
+	{
+	case _m_ROUND_OVER:
+		onRoundOver();
+		break;
+	case _m_ROUND_START:
+		onRoundStart();
+		break;
+	default:
+		break;
+	}
 }
 
 void FighterSystem::initSystem()
@@ -50,8 +61,7 @@ void FighterSystem::onCollision_FighterAsteroid()
 	health->onAsteroidCollision();
 
 	//Posición inicial
-	cTR->init(Vector2D((sdlutils().width() - cTR->getWidth()) / 2.0f,
-		(sdlutils().height() - cTR->getHeight()) / 2.0f), Vector2D(), cTR->getWidth(), cTR->getHeight(), 0.0f);
+	cTR->init(Vector2D((sdlutils().width() - cTR->width_) / 2.0f, (sdlutils().height() - cTR->height_) / 2.0f), Vector2D(), cTR->width_, cTR->height_, 0.0f);
 }
 
 void FighterSystem::onRoundOver()

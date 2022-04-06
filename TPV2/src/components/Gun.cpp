@@ -30,8 +30,8 @@ void Gun::update() {
 
 	if (ihldr.keyDownEvent()) {
 
-		auto& vel_ = tr_->getVel();
-		auto rot = tr_->getRot();
+		auto& vel_ = tr_->vel_;
+		auto rot = tr_->rot_;
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_S)) 
 		{
@@ -44,12 +44,12 @@ void Gun::update() {
 				// add a Transform component, and initialise it with random
 				// size and position
 				//
-				auto bPos = tr_->getPos() + Vector2D(tr_->getWidth() / 2.0f, tr_->getHeight() / 2.0f) -
-					Vector2D(0.0f, tr_->getHeight() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
-				auto bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
+				auto bPos = tr_->pos_ + Vector2D(tr_->width_ / 2.0f, tr_->height_ / 2.0f) -
+					Vector2D(0.0f, tr_->height_ / 2.0f + 5.0f + 12.0f).rotate(tr_->rot_) - Vector2D(2.0f, 10.0f);
+				auto bVel = Vector2D(0.0f, -1.0f).rotate(tr_->rot_) * (tr_->vel_.magnitude() + 5.0f);
 
 				auto tr = mngr_->addComponent<Transform>(e);
-				tr->init(bPos, bVel, 5.0f, 20.0f, tr_->getRot());
+				tr->init(bPos, bVel, 5.0f, 20.0f, tr_->rot_);
 
 				// add an Image Component
 				mngr_->addComponent<Image>(e, &sdlutils().images().at("bullet"));

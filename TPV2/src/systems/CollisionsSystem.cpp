@@ -1,7 +1,7 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
+#pragma once
 #include "CollisionsSystem.h"
-
 #include "../components/Transform.h"
 #include "../ecs/messages.h"
 #include "../ecs/Manager.h"

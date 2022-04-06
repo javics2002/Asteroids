@@ -19,7 +19,7 @@ FighterCtrl::~FighterCtrl() {
 }
 
 void FighterCtrl::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
+	tr_ = mngr_->getComponent<Transform>(ent_);
 	assert(tr_ != nullptr);
 }
 
@@ -29,11 +29,11 @@ void FighterCtrl::update() {
 
 	if (ihldr.keyDownEvent()) {
 
-		auto &vel_ = tr_->getVel();
-		auto rot = tr_->getRot();
+		auto &vel_ = tr_->vel_;
+		auto rot = tr_->rot_;
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { // rotate right
-			tr_->setRot(rot + 5.0f);
+			tr_->rot_ = (rot + 5.0f);
 
 			// also rotate the Fighter so it looks in the same
 			// direction where it moves
@@ -41,7 +41,7 @@ void FighterCtrl::update() {
 			vel_ = vel_.rotate(5.0f);
 		}
 		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
-			tr_->setRot(rot - 5.0f);
+			tr_->rot_ = (rot - 5.0f);
 
 			// also rotate the Fighter so it looks in the same
 			// direction where it moves

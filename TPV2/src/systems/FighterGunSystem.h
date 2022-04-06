@@ -6,6 +6,8 @@ const unsigned int BULLET_CD = 1000;
 
 class FighterGunSystem : public ecs::System {
 public:
+	__SYSID_DECL__(ecs::_hdlr_FIGHTERGUN)
+
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	void receive(const Message& m) override;
 	// Inicializar el sistema, etc.
