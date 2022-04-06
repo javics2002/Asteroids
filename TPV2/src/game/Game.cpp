@@ -92,11 +92,11 @@ void Game::start() {
 
 void Game::updateSystems()
 {
-	asteroidsSys_->update();
 	fighterSys_->update();
 	fighterGunSys_->update();
 	bulletsSys_->update();
-	gameCtrlSys_->update();
+	asteroidsSys_->update();
 	collisionsSys_->update();
+	gameCtrlSys_->update();
 	renderSys_->update();
 }

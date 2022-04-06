@@ -51,7 +51,7 @@ void CollisionsSystem::update() {
 	auto n = asteroids.size();
 	for (auto i = 0u; i < n; i++) {
 		auto asteroidEntity = asteroids[i];
-		if (mngr_->isAlive(asteroidEntity)) { // if the star is active (it might have died in this frame)
+		if (mngr_->isAlive(asteroidEntity)) {
 
 			// the asteroid Transform
 			//

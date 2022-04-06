@@ -23,15 +23,15 @@ void RenderSystem::receive(const Message& m)
 		state_ = PAUSED;
 		break;
 	case _m_GAME_OVER:
-		state_ = GAMEOVER;
 		winner_ = 1;
+		state_ = GAMEOVER;
 		break;
 	case _m_NEW_GAME:
 		initSystem();
 		break;
 	case _m_ASTEROIDS_EXTINCTION:
-		state_ = WIN;
 		winner_ = 2;
+		state_ = WIN;
 	default:
 		break;
 	}

@@ -7,6 +7,7 @@
 #include "../components/DisableOnExit.h"
 #include "../systems/BulletsSystem.h"
 #include "../sdlutils/InputHandler.h"
+#include "../components/Health.h"
 
 void FighterGunSystem::receive(const Message& m)
 {
