@@ -1,41 +1,48 @@
 #include "GameCtrlSystem.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
+#include "../ecs/Manager.h"
+
+GameCtrlSystem::GameCtrlSystem() : winner_(0), state_(NEWGAME) {
+}
+
+GameCtrlSystem::~GameCtrlSystem() {
+}
 
 void GameCtrlSystem::receive(const Message& m)
 {
 	switch (m.id) {
-	default: 
+	case _m_ON_COLLISION_FIGHTER_ASTEROID:
+		onCollision_FighterAsteroid();
+		break;
+	case _m_ASTEROIDS_EXTINCTION:
+		onAsteroidsExtinction();
+		winner_ = m.asteroid_extinction.winner;
+		break;
+	default:
 		break;
 	}
 }
 
 void GameCtrlSystem::initSystem()
 {
+	winner_ = 0;
+	state_ = NEWGAME;
 }
 
 void GameCtrlSystem::update()
 {
-	if (getState() != RUNNING) {
+	if (state_ != RUNNING) {
 		auto& inhdlr = ih();
+
 		if (inhdlr.isKeyDown(SDL_SCANCODE_SPACE)) {
-			switch (getState()) {
+			switch (state_) {
 			case NEWGAME:
 			case PAUSED:
-				setState(RUNNING);
-
-				aMngr_->createAsteroids(10);
-
-				// añadir al fighter sus cosas para jugar
-				mngr_->getHandler(ecs::_hdlr_CAZA)->addComponent<FighterCtrl>();
-				mngr_->getHandler(ecs::_hdlr_CAZA)->addComponent<Gun>();
-
+				startRound();
 				break;
 			case GAMEOVER:
-			case WIN:
-				setState(NEWGAME);
-
-				mngr_->getHandler(ecs::_hdlr_CAZA)->getComponent<Health>()->resetLives();
+				startGame();
 				break;
 			default:
 				break;
@@ -44,41 +51,39 @@ void GameCtrlSystem::update()
 	}
 }
 
-void GameCtrlSystem::onCollision_AsteroidBullet(Entity* a)
+void GameCtrlSystem::onCollision_FighterAsteroid()
 {
+	state_ = PAUSED;
+	
+	Message m;
+	m.id = _m_ROUND_OVER;
+	mngr_->send(m);
 }
 
-void GameCtrlSystem::onRoundOver()
+void GameCtrlSystem::onAsteroidsExtinction()
 {
+	Message m;
+	state_ = GAMEOVER;
+	m.id = _m_ROUND_OVER;
+	mngr_->send(m);
+	m.id = _m_GAME_OVER;
+	mngr_->send(m);
 }
 
-void GameCtrlSystem::onRoundStart()
+void GameCtrlSystem::startRound()
 {
+	state_ = RUNNING;
+
+	Message m;
+	m.id = _m_ROUND_START;
+	mngr_->send(m);
 }
 
-void GameCtrlSystem::showMessage(std::string key)
+void GameCtrlSystem::startGame()
 {
-	auto& t = sdlutils().msgs().at(key);
-	t.render((sdlutils().width() - t.width()) / 2, sdlutils().height() / 2 + t.height() * 2);
-}
+	state_ = RUNNING;
 
-//void GameState::render() {
-//	if (state_ != RUNNING) {
-//		switch (state_) {
-//		case NEWGAME:
-//			showMessage("start");
-//			break;
-//		case PAUSED:
-//			showMessage("continue");
-//			break;
-//		case GAMEOVER:
-//			showMessage("gameover");
-//			break;
-//		case WIN:
-//			showMessage("win");
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-//}
+	Message m;
+	m.id = _m_NEW_GAME;
+	mngr_->send(m);
+}

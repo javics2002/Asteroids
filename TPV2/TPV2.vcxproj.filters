@@ -85,5 +85,7 @@
     <ClInclude Include="src\systems\FighterGunSystem.h" />
     <ClInclude Include="src\systems\CollisionsSystem.h" />
     <ClInclude Include="src\systems\RenderSystem.h" />
+    <ClInclude Include="src\game\messages_defs.h" />
+    <ClInclude Include="src\ecs\messages.h" />
   </ItemGroup>
 </Project>
