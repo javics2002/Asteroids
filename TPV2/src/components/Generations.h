@@ -2,7 +2,7 @@
 #include "../ecs/Component.h"
 #include "../sdlutils/SDLUtils.h"
 
-class Generations : public ecs::Component
+struct Generations : public ecs::Component
 {public:
 	__CMPID_DECL__(ecs::_GENERATIONS)
 

@@ -3,7 +3,7 @@
 
 struct Transform;
 
-class Follow : public ecs::Component
+struct Follow : public ecs::Component
 {
 public:
 	__CMPID_DECL__(ecs::_FOLLOW)
