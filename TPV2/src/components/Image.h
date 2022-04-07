@@ -6,7 +6,7 @@
 struct Transform;
 class Texture;
 
-class Image: public ecs::Component {
+struct Image: public ecs::Component {
 public:
 
 	// This line expands to the following (see the defintion of
@@ -24,11 +24,6 @@ public:
 		tex_ = tex;
 	}
 
-	void initComponent() override;
-	void render() override;
-
-private:
-	Transform *tr_;
 	Texture *tex_;
 };
 

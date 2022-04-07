@@ -7,7 +7,6 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
-#include "../components/ShowAtOppositeSide.h"
 #include "../components/Deacceleration.h"
 #include "../components/FighterCtrl.h"
 
@@ -42,7 +41,6 @@ void FighterSystem::initSystem()
 
 	//Añadir componentes
 	mngr_->addComponent<Image>(caza, &sdlutils().images().at("fighter"));
-	mngr_->addComponent<ShowAtOppositeSide>(caza);
 	mngr_->addComponent<Health>(caza, &sdlutils().images().at("heart"));
 	mngr_->addComponent<Deacceleration>(caza);
 	mngr_->addComponent<FighterCtrl>(caza);

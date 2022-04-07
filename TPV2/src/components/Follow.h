@@ -10,12 +10,5 @@ public:
 
 	Follow();
 	virtual ~Follow() {};
-
-	void initComponent() override;
-	void update() override;
-
-protected:
-	Transform* tr_;
-	Transform* trFighter_;
 };
 

@@ -6,14 +6,14 @@
 struct Transform;
 class Texture;
 
-class FramedImage : public ecs::Component
+struct FramedImage : public ecs::Component
 { 
 	unsigned int frameLength_; // In miliseconds
 	unsigned int frameWidth_; 
 	unsigned int frameHeight_; 
 	unsigned int framesX_, framesY_;
 	unsigned int deltatime_;
-	Vector2D framePosition_;
+	unsigned int framePositionX_, framePositionY_;
 	Transform* tr_;
 	Texture* tex_;
 
@@ -25,7 +25,5 @@ public:
 	~FramedImage() {};
 
 	void initComponent() override;
-	void update() override;
-	void render() override;
 };
 

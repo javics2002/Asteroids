@@ -2,6 +2,10 @@
 #include "../ecs/System.h"
 #include <string>
 
+struct FramedImage;
+struct Image;
+struct Transform;
+
 class RenderSystem : public ecs::System {
 public:
 	__SYSID_DECL__(ecs::_hdlr_RENDER)
@@ -18,6 +22,10 @@ public:
 		// - Dibujar los mensajes correspondiente: si el juego está parado, etc (como en
 		// la práctica 1)
 	void update() override;
+
+	void render(Transform* tr_, Image* image_);
+
+	void animation(FramedImage* framedImage, Transform* tr_);
 
 private:
 	// Para gestionar los mensajes correspondientes y actualizar los atributos

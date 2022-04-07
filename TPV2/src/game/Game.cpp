@@ -5,7 +5,6 @@
 #include "../components/Image.h"
 #include "../components/FighterCtrl.h"
 #include "../components/Transform.h"
-#include "../components/ShowAtOppositeSide.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"

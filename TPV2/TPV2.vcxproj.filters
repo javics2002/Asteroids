@@ -6,7 +6,6 @@
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\DisableOnExit.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
-    <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\components\Gun.cpp" />
     <ClCompile Include="src\components\Deacceleration.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\DisableOnExit.h" />
     <ClInclude Include="src\components\Generations.h" />
-    <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\components\Gun.h" />
     <ClInclude Include="src\components\Deacceleration.h" />
     <ClInclude Include="src\components\Image.h" />

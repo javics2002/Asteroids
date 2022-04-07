@@ -2,6 +2,8 @@
 #include "../ecs/System.h"
 #include "../ecs/Entity.h"
 
+struct Transform;
+
 class AsteroidsSystem : public ecs::System {
 public:
 	__SYSID_DECL__(ecs::_hdlr_ASTEROIDS)
@@ -15,6 +17,10 @@ public:
 	// en la práctica 1 y generar 1 asteroide nuevo cada 5 segundos (aparte
 	// de los 10 al principio de cada ronda).
 	void update() override;
+
+	void followFighter(Vector2D& currentVel, Transform* trFighter_, Transform* tr_);
+
+	void showAtOppositeSide(Transform* tr_);
 
 private:
 	// Para gestionar el mensaje de que ha habido un choque de un asteroide con una
