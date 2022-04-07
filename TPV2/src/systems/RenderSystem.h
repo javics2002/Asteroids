@@ -23,6 +23,8 @@ public:
 		// la práctica 1)
 	void update() override;
 
+	void renderLives(ecs::Entity* fighter);
+
 	void render(Transform* tr_, Image* image_);
 
 	void animation(FramedImage* framedImage, Transform* tr_);
