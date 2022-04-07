@@ -4,7 +4,6 @@
 #include "../game/ecs_defs.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
-#include "../components/DisableOnExit.h"
 #include "../systems/BulletsSystem.h"
 #include "../sdlutils/InputHandler.h"
 #include "../components/Health.h"

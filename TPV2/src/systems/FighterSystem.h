@@ -1,7 +1,10 @@
 #pragma once
 #include "../ecs/System.h"
 
-class FighterSystem : public ecs::System {
+class Transform;
+
+class FighterSystem : public ecs::System 
+{
 public:
 	__SYSID_DECL__(ecs::_hdlr_FIGHTER)
 
@@ -25,6 +28,30 @@ private:
 	void onRoundStart();
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
+
+	Transform* tr_;
+
+	void deaccelerate();
+
+	void move();
+
+	void showAtOppositeSide();
+
 	bool active_;
+
+	struct Deacceleration
+	{
+		const float DEACC = 0.995f;
+	};
+
+	Deacceleration deacceleration;
+
+	struct Ctrl
+	{
+		const float THRUST = 0.2f;
+		const float SPEED_LIMIT = 3.0f;
+	};
+
+	Ctrl ctrl;
 };
 

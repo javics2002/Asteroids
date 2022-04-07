@@ -3,9 +3,7 @@
 #include "Game.h"
 
 #include "../components/Image.h"
-#include "../components/FighterCtrl.h"
 #include "../components/Transform.h"
-#include "../components/ShowAtOppositeSide.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
@@ -13,8 +11,6 @@
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 #include "../components/Health.h"
-#include "../components/Deacceleration.h"
-#include "../components/Gun.h"
 #include "../ecs/ecs.h"
 
 #include "../systems/AsteroidsSystem.h"

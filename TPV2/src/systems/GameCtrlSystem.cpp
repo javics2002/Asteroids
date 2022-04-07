@@ -3,6 +3,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../ecs/Manager.h"
 #include "../components/Health.h"
+#include "../systems/FighterSystem.h"
 
 GameCtrlSystem::GameCtrlSystem() : winner_(0), state_(NEWGAME) 
 {
@@ -111,6 +112,4 @@ void GameCtrlSystem::startGame()
 	Message m;
 	m.id = _m_NEW_GAME;
 	mngr_->send(m);
-
-	mngr_->getComponent<Health>(mngr_->getHandler(ecs::_hdlr_CAZA))->resetLives();
 }

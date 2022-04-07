@@ -7,7 +7,7 @@
 
 class Texture;
 
-class Health : public ecs::Component {
+struct Health : public ecs::Component {
 public:
 
 	// This line expands to the following (see the defintion of
@@ -17,24 +17,27 @@ public:
 	//
 	__CMPID_DECL__(ecs::_HEALTH)
 
-		Health();
-	Health(Texture* tex);
-	virtual ~Health();
+	Health() { tex_ = nullptr; };
+	Health(Texture* tex) { setTexture(tex); };
+	~Health() {};
 
 	void setTexture(Texture* tex) {
 		tex_ = tex;
 	}
 
-	void initComponent() override;
-	void render() override;
-	void onAsteroidCollision();
-
 	int getLives() { return lives; };
 
 	void resetLives() { lives = MAX_LIVES; };
 
-protected:
+	void onAsteroidCollision()
+	{
+		if (lives > 0)
+			lives--;
+	}
+
 	Texture* tex_;
+
+protected:
 	
 	const int MAX_LIVES = 3;
 	int lives = MAX_LIVES;

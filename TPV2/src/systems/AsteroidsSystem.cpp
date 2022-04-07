@@ -2,7 +2,6 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../components/Transform.h"
-#include "../components/ShowAtOppositeSide.h"
 #include "../components/Generations.h"
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
@@ -70,7 +69,6 @@ void AsteroidsSystem::onCollision_AsteroidBullet(ecs::Entity* a)
 			auto generations = mngr_->addComponent<Generations>(asteroid, numGenerations);
 			float dimension = 10.0f + 5.0f * generations->getGenerations();
 			mngr_->addComponent<Transform>(asteroid, pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
-			mngr_->addComponent<ShowAtOppositeSide>(asteroid);
 
 			//Tipo B
 			if (sdlutils().rand().nextInt(0, 10) < 3) {
@@ -146,7 +144,6 @@ void AsteroidsSystem::createAsteroids(int n)
 		float dimension = 10.0f + 5.0f * generations->getGenerations();
 
 		mngr_->addComponent<Transform>(asteroid, pos, vel, dimension, dimension, sdlutils().rand().nextInt(0, 360));
-		mngr_->addComponent<ShowAtOppositeSide>(asteroid);
 
 		//Tipo B
 		if (sdlutils().rand().nextInt(0, 10) < 3) {

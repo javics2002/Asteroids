@@ -1,9 +1,7 @@
 #include "BulletsSystem.h"
 #include "../components/Transform.h"
-#include "../components/Gun.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Image.h"
-#include "../components/DisableOnExit.h"
 #include "../utils/Vector2D.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
@@ -42,8 +40,8 @@ void BulletsSystem::update()
 
 		for (int i = 0u; i < bullets.size(); i++) 
 		{
-			bullets[i]->update();
 			mngr_->getComponent<Transform>(bullets[i])->move();
+			disabledOnExit(bullets[i]);
 		}
 	}
 }
@@ -54,12 +52,12 @@ void BulletsSystem::shoot(Vector2D pos, Vector2D vel, double width, double heigh
 
 	//// add a Transform component, and initialize it with random size and position
 
-	auto tr = mngr_->addComponent<Transform>(e);
-	tr->init(pos, vel, width, height, vel.angle(Vector2D(0.0f, -1.0f)));
+	tr_ = mngr_->addComponent<Transform>(e);
+	tr_->init(pos, vel, width, height, vel.angle(Vector2D(0.0f, -1.0f)));
 
 	// add an Image Component
 	mngr_->addComponent<Image>(e, &sdlutils().images().at("bullet"));
-	mngr_->addComponent<DisableOnExit>(e);
+	//mngr_->addComponent<DisableOnExit>(e);
 
 	sdlutils().soundEffects().at("fire").play(0, 1);
 }
@@ -77,4 +75,16 @@ void BulletsSystem::onRoundOver()
 void BulletsSystem::onRoundStart()
 {
 	active_ = true;
+}
+
+void BulletsSystem::disabledOnExit(ecs::Entity* b)
+{
+	auto& pos = tr_->pos_;
+
+	// check borders
+	if (pos.getX() + tr_->width_ < 0 || pos.getX() > sdlutils().width() ||
+		pos.getY() + tr_->height_ < 0 || pos.getY() > sdlutils().height())
+	{
+		mngr_->setAlive(b, false);
+	}
 }

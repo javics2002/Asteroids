@@ -3,6 +3,8 @@
 #include "../utils/Vector2D.h"
 #include "../ecs/Entity.h"
 
+struct Transform;
+
 class BulletsSystem : public ecs::System {
 public:
 
@@ -33,6 +35,10 @@ private:
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_;
+
+	void disabledOnExit(ecs::Entity* b);
+
+	Transform* tr_;
 
 	//Manager* mngr_  = nullptr; //  a pointer to the manager, should not be deleted on destruction
 };
