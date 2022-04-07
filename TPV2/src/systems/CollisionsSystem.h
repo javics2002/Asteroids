@@ -23,6 +23,10 @@ public:
     // en la práctica 1 y enviar mensajes correspondientes.
     void update() override;
 
+    void bulletAsteroidCollision(Transform* eTR, ecs::Entity* asteroidEntity);
+
+    void deactivateFighter(Transform* fTR, Transform* eTR, bool& retflag);
+
 private:
     // Para gestionar el mensaje de que ha acabado una ronda. Desactivar el sistema.
     void onRoundOver();

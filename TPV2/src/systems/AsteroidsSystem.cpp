@@ -74,12 +74,15 @@ void AsteroidsSystem::onCollision_AsteroidBullet(ecs::Entity* a)
 
 			//Tipo B
 			if (sdlutils().rand().nextInt(0, 10) < 3) {
-				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"));
+				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"),
+					85u, 100u, 4u, 5u, 50u);
 				mngr_->addComponent<Follow>(asteroid);
+				new FramedImage(&sdlutils().images().at("asteroid_gold"),
+					85u, 100u, 4u, 5u, 50u);
 			}
 			//Tipo A
 			else {
-				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"));
+				mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"), 85u, 100u, 4u, 5u, 50u);
 			}
 
 			numOfAsteroids_++;
@@ -147,12 +150,13 @@ void AsteroidsSystem::createAsteroids(int n)
 
 		//Tipo B
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
-			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"));
+			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid_gold"), 
+				85u, 100u, 4u, 5u, 50u);
 			mngr_->addComponent<Follow>(asteroid);
 		}
 		//Tipo A
 		else {
-			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"));
+			mngr_->addComponent<FramedImage>(asteroid, &sdlutils().images().at("asteroid"), 85u, 100u, 4u, 5u, 50u);
 		}
 
 		numOfAsteroids_++;

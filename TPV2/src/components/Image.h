@@ -3,7 +3,7 @@
 #pragma once
 #include "../ecs/Component.h"
 
-class Transform;
+struct Transform;
 class Texture;
 
 class Image: public ecs::Component {

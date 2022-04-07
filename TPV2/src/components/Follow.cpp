@@ -7,8 +7,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "Transform.h"
 
-Follow::Follow() {
-	tr_ = nullptr;
+Follow::Follow() : tr_(nullptr), trFighter_(nullptr) {
 }
 
 void Follow::initComponent()

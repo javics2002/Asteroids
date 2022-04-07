@@ -9,58 +9,48 @@
 #include "Transform.h"
 #include "../ecs/Manager.h"
 
-FramedImage::FramedImage(Texture* tex) : tr_(), tex_(tex) {
+FramedImage::FramedImage(Texture* tex, unsigned int width, unsigned int height,
+    unsigned int framesX, unsigned int framesY, unsigned int frameLength) : tr_(nullptr), tex_(tex),
+    frameWidth_(width), frameHeight_(height), framesX_(framesX), framesY_(framesY), frameLength_(frameLength) {
+    deltatime_ = sdlutils().currRealTime();
 }
 
 void FramedImage::initComponent()
 {
-    deltatime = sdlutils().currRealTime();
+    deltatime_ = sdlutils().currRealTime();
 	tr_ = mngr_->getComponent<Transform>(ent_);
 	assert(tr_ != nullptr);
 }
 
 void FramedImage::update()
 {
-	/*deltatime = sdlutils().currRealTime() - deltatime;
-
-	if (deltatime > FRAME_LENGTH)
-	{
-		framePosition = Vector2D(x, y);
-		scr = build_sdlrect(framePosition, FRAME_WIDTH, FRAME_HEIGHT);
-
-		x = (x + FRAME_WIDTH) % (FRAME_WIDTH * 6);
-		y = (y + FRAME_HEIGHT) % (FRAME_HEIGHT * 5);
-	}
-	
-	deltatime = sdlutils().currRealTime();*/
 }
 
 void FramedImage::render()
 {
-    if (deltatime + 50 > sdlutils().currRealTime()) {
-        deltatime = sdlutils().currRealTime();
+    if (deltatime_ + frameLength_ > sdlutils().currRealTime()) {
+        deltatime_ = sdlutils().currRealTime();
 
-        framePosition.setY(framePosition.getY() + 1);
-        if (framePosition.getY() > 5) {
-            framePosition.setY(0);
+        framePosition_.setY(framePosition_.getY() + 1);
+        if (framePosition_.getY() > framesY_) {
+            framePosition_.setY(0);
 
-            framePosition.setX(framePosition.getX() + 1);
-            if (framePosition.getX() > 4) {
-                framePosition.setX(0);
+            framePosition_.setX(framePosition_.getX() + 1);
+            if (framePosition_.getX() > framesX_) {
+                framePosition_.setX(0);
             }
         }
+        /*framePosition_.setX(framePosition_.getX() + 1 % framesX_);
+        framePosition_.setY(framePosition_.getY() + 1 % framesY_);*/
     }
 
-    SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_,
-        tr_->height_);
+    SDL_Rect dest = build_sdlrect(tr_->pos_, tr_->width_, tr_->height_);
 
     // x, y
     // filas, columnas
-    Vector2D framePos(framePosition.getY() * 85, framePosition.getX() * 100);
+    Vector2D framePos(framePosition_.getY() * 85, framePosition_.getX() * 100);
 
-    SDL_Rect src = build_sdlrect(framePos, 85,
-        100);
-
+    SDL_Rect src = build_sdlrect(framePos, 85, 100);
 
     assert(tex_ != nullptr);
     tex_->render(src, dest, tr_->rot_);

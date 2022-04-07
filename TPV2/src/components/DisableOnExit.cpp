@@ -9,7 +9,7 @@
 
 using namespace std;
 
-DisableOnExit::DisableOnExit()
+DisableOnExit::DisableOnExit() : tr_(nullptr)
 {
 }
 

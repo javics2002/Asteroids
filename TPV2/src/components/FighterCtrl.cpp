@@ -33,19 +33,9 @@ void FighterCtrl::update() {
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { // rotate right
 			tr_->rot_ = (rot + 5.0f);
-
-			// also rotate the Fighter so it looks in the same
-			// direction where it moves
-			//
-			vel_ = vel_.rotate(5.0f);
 		}
 		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
 			tr_->rot_ = (rot - 5.0f);
-
-			// also rotate the Fighter so it looks in the same
-			// direction where it moves
-			//
-			vel_ = vel_.rotate(-5.0f);
 		}
 		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
 

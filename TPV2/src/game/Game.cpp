@@ -4,7 +4,6 @@
 
 #include "../components/Image.h"
 #include "../components/FighterCtrl.h"
-#include "../components/StopOnBorders.h"
 #include "../components/Transform.h"
 #include "../components/ShowAtOppositeSide.h"
 #include "../ecs/Entity.h"

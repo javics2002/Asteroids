@@ -1,7 +1,7 @@
 #pragma once
 #include "../ecs/Component.h"
 
-class Transform;
+struct Transform;
 
 class Gun : public ecs::Component {
 public:

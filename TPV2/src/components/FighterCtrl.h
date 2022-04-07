@@ -3,7 +3,7 @@
 #pragma once
 #include "../ecs/Component.h"
 
-class Transform;
+struct Transform;
 
 class FighterCtrl: public ecs::Component {
 public:
@@ -25,7 +25,7 @@ private:
 	void createStart();
 	Transform *tr_;
 
-	const float THRUST = 0.2;
-	const float SPEED_LIMIT = 3.0;
+	const float THRUST = 0.2f;
+	const float SPEED_LIMIT = 3.0f;
 };
 

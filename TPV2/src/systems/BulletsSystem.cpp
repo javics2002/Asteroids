@@ -10,7 +10,7 @@
 
 void BulletsSystem::receive(const Message& m)
 {
-	switch (m.id)
+ 	switch (m.id)
 	{
 	case _m_ROUND_OVER:
 		onRoundOver();
@@ -21,8 +21,8 @@ void BulletsSystem::receive(const Message& m)
 	case _m_SHOOT:
 		shoot(m.shoot_data.pos, m.shoot_data.vel, m.shoot_data.width, m.shoot_data.height);
 		break;
-	case _m_ON_COLLISION_BULLET_ASTEROID:
-		onCollision_BulletAsteroid(m.bullet_hit_asteroid.a);
+	case _m_ON_COLLISION_ASTEROID_BULLET:
+		onCollision_BulletAsteroid(m.bullet_hit_asteroid.b);
 		break;
 	default:
 		break;

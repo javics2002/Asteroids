@@ -1,7 +1,7 @@
 #pragma once
 #include "../ecs/Component.h"
 
-class Transform;
+struct Transform;
 
 class Deacceleration : public ecs::Component {
 public:
@@ -22,6 +22,6 @@ private:
 	void createStart();
 	Transform* tr_;
 
-	const float DEACC = 0.995;
+	const float DEACC = 0.995f;
 };
 

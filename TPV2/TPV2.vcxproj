@@ -39,7 +39,6 @@
     <ClInclude Include="src\ecs\System.h" />
     <ClInclude Include="src\components\Image.h" />
     <ClInclude Include="src\components\FighterCtrl.h" />
-    <ClInclude Include="src\components\StopOnBorders.h" />
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\ecs\Component.h" />
     <ClInclude Include="src\ecs\ecs.h" />
@@ -83,7 +82,6 @@
     <ClCompile Include="src\components\Deacceleration.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
     <ClCompile Include="src\components\FighterCtrl.cpp" />
-    <ClCompile Include="src\components\StopOnBorders.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\json\JSON.cpp" />

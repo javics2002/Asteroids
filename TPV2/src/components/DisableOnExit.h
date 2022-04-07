@@ -1,7 +1,7 @@
 #pragma once
 #include "../ecs/Component.h"
 
-class Transform;
+struct Transform;
 
 class DisableOnExit : public ecs::Component {
 public:

@@ -26,12 +26,7 @@ void Deacceleration::update()
 	auto& vel_ = tr_->vel_;
 
 	if (vel_.magnitude() < 0.05)
-	{
 		vel_.set(0, 0);
-	}
 	else
-	{
-		vel_.setX(vel_.getX() * DEACC);
-		vel_.setY(vel_.getY() * DEACC);
-	}
+		vel_ = vel_ * DEACC;
 }

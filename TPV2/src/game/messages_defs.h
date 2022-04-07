@@ -16,7 +16,6 @@ enum msgId : msgId_type {
 	_m_ON_COLLISION_FIGHTER_ASTEROID, // 
 	_m_ASTEROIDS_EXTINCTION, //
 	_m_ON_COLLISION_ASTEROID_BULLET, //
-	_m_ON_COLLISION_BULLET_ASTEROID, //
 	_m_SHOOT
 };
 
@@ -66,6 +65,7 @@ struct Message
 		struct 
 		{
 			ecs::Entity* a;
+			ecs::Entity* b;
 		} bullet_hit_asteroid;
 
 		struct
