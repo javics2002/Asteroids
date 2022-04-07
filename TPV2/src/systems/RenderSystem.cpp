@@ -76,10 +76,24 @@ void RenderSystem::update()
 
 		auto fighter = mngr_->getHandler(ecs::_hdlr_CAZA);
 		render(mngr_->getComponent<Transform>(fighter), mngr_->getComponent<Image>(fighter));
+
+		renderLives(fighter);
 	}
 		break;
 	default:
 		break;
+	}
+}
+
+void RenderSystem::renderLives(ecs::Entity* fighter)
+{
+	auto health = mngr_->getComponent<Health>(fighter);
+	for (int i = 0; i < health->getLives(); i++)
+	{
+		SDL_Rect dest = build_sdlrect(HEALTH_POS + i * HEALTH_SIZE, HEALTH_POS, HEALTH_SIZE, HEALTH_SIZE);
+
+		assert(health->tex_ != nullptr);
+		health->tex_->render(dest);
 	}
 }
 
