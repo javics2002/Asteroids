@@ -42,11 +42,49 @@ void AsteroidsSystem::update()
 		auto& asteroids = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 
 		for (int i = 0u; i < asteroids.size(); i++) {
-			mngr_->getComponent<Transform>(asteroids[i])->move();
-			asteroids[i]->update();
+			auto tr_ = mngr_->getComponent<Transform>(asteroids[i]);
+			tr_->move();
+
+			showAtOppositeSide(tr_);
+
+			if (mngr_->hasComponent<Follow>(asteroids[i])) {
+				auto& currentVel = tr_->vel_;
+				auto trFighter_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::_hdlr_CAZA));
+
+				followFighter(currentVel, trFighter_, tr_);
+			}
 		}
 
 		addAsteroidFrequently();
+	}
+}
+
+void AsteroidsSystem::followFighter(Vector2D& currentVel, Transform* trFighter_, Transform* tr_)
+{
+	if (currentVel.angle(trFighter_->pos_ - tr_->pos_) > 0) {
+		currentVel = currentVel.rotate(1.0f);
+	}
+	else {
+		currentVel = currentVel.rotate(-1.0f);
+	}
+}
+
+void AsteroidsSystem::showAtOppositeSide(Transform* tr_)
+{
+	// check left/right borders
+	if (tr_->pos_.getX() + tr_->width_ < 0) {
+		tr_->pos_.setX(sdlutils().width());
+	}
+	else if (tr_->pos_.getX() > sdlutils().width()) {
+		tr_->pos_.setX(-tr_->width_);
+	}
+
+	// check upper/lower borders
+	if (tr_->pos_.getY() + tr_->height_ < 0) {
+		tr_->pos_.setY(sdlutils().height());
+	}
+	else if (tr_->pos_.getY() > sdlutils().height()) {
+		tr_->pos_.setY(-tr_->height_);
 	}
 }
 
